@@ -1,0 +1,15 @@
+.header-link {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.2rem;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.header-icon {
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}
