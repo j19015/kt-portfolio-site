@@ -14,10 +14,6 @@ export const metadata: Metadata = {
   description: 'kt-portfolio-site',
 };
 
-export const themeConfig: ThemeConfig = {
-  initialColorMode: 'system',
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +23,7 @@ export default function RootLayout({
     <html lang='ja'>
       <body className={inter.className}>
         <ColorModeScript type='cookie' nonce='testing' />
-        <UIProvider config={themeConfig} colorModeManager={{ ...colorModeManager }.cookieStorage}>
+        <UIProvider colorModeManager={{ ...colorModeManager }.cookieStorage}>
           <Header />
           <Box minHeight={'calc(100vh - 64px)'}>{children}</Box>
           <Footer />
