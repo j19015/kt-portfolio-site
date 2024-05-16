@@ -50,22 +50,11 @@ export const Header: React.FC = () => {
   return (
     <>
       <Flex w='full' gap='md' p='md' alignItems='center'>
-        <NavButton
-          as='h1'
-          fontSize='4xl'
-          label='kt-portfolio-site'
-          p='md'
-          fontFamily='Pacifico'
-        />
+        <NavButton as='h1' fontSize='4xl' label='kt-portfolio-site' p='md' fontFamily='Pacifico' />
 
         <Spacer />
 
-        <NavButton
-          icon={faHouseUser}
-          label='Home'
-          display={{ base: 'flex', md: 'none' }}
-          p='md'
-        />
+        <NavButton icon={faHouseUser} label='Home' display={{ base: 'flex', md: 'none' }} p='md' />
         <NavButton
           icon={faBuilding}
           label='Career'
@@ -110,41 +99,11 @@ export const Header: React.FC = () => {
         </DrawerHeader>
 
         <DrawerBody>
-          <NavButton
-            icon={faHouseUser}
-            label='Home'
-            display='flex'
-            as='button'
-            px='md'
-          />
-          <NavButton
-            icon={faBuilding}
-            label='Career'
-            display='flex'
-            as='button'
-            px='md'
-          />
-          <NavButton
-            icon={faStar}
-            label='Experience'
-            display='flex'
-            as='button'
-            px='md'
-          />
-          <NavButton
-            icon={faBook}
-            label='Blogs'
-            display='flex'
-            as='button'
-            px='md'
-          />
-          <NavButton
-            icon={faCompass}
-            label='Others'
-            display='flex'
-            as='button'
-            px='md'
-          />
+          <NavButton icon={faHouseUser} label='Home' display='flex' as='button' px='md' />
+          <NavButton icon={faBuilding} label='Career' display='flex' as='button' px='md' />
+          <NavButton icon={faStar} label='Experience' display='flex' as='button' px='md' />
+          <NavButton icon={faBook} label='Blogs' display='flex' as='button' px='md' />
+          <NavButton icon={faCompass} label='Others' display='flex' as='button' px='md' />
         </DrawerBody>
       </Drawer>
     </>
