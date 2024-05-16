@@ -14,7 +14,6 @@ import {
 import { Drawer, DrawerHeader, DrawerBody, DrawerFooter } from '@yamada-ui/react';
 
 import styles from './styles.module.scss';
-import '@/app/styles/fonts.scss';
 
 interface NavButtonProps {
   icon?: IconDefinition;
