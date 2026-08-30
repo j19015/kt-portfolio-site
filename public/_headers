@@ -1,4 +1,10 @@
-# Cloudflare Pages 用のヘッダ設定。
+# ── 公開前の設定 ─────────────────────────────────
+# クロールを止めている。公開するときは次の2行を消し、
+# あわせて lib/site.ts の INDEXABLE を true にすること
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, noimageindex
+# ────────────────────────────────────────────────
+
 # OG画像は拡張子なしのパスで出力されるため、MIMEを明示しないと
 # SNS のクローラが画像として認識しない
 /opengraph-image

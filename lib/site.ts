@@ -2,6 +2,15 @@
  * サイト全体で使う定数。
  * 肩書き・キャッチはここだけ直せば全画面に反映される。
  */
+/**
+ * 検索エンジンにインデックスさせるかどうか。
+ *
+ * 公開する準備が整ったら `true` にして、あわせて `public/_headers` の
+ * X-Robots-Tag ブロックを消すこと。片方だけ変えても効かない
+ * （ヘッダは meta より強く、HTMLでないファイルにも効くため）。
+ */
+export const INDEXABLE = false;
+
 export const SITE = {
   nameEn: "KOKI TAKAHASHI",
   nameJa: "高橋 幸希",

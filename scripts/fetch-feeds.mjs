@@ -111,7 +111,9 @@ async function fetchRepos() {
       label: overrides[r.name]?.label ?? null,
       description: overrides[r.name]?.description ?? r.description,
       url: r.html_url,
-      homepage: r.homepage || null,
+      // GitHubのHomepage欄が古いままのリポジトリがあるので、
+      // works-config.json 側に書いた本番URLを優先する
+      homepage: overrides[r.name]?.homepage || r.homepage || null,
       language: r.language,
       stars: r.stargazers_count,
       topics: r.topics ?? [],

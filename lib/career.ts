@@ -20,6 +20,7 @@ export type Education = {
   end: string | null;
 };
 export type LinkItem = { label: string; url: string };
+export type NextItem = { no: string; title: string; body: string };
 
 export type CareerData = {
   profile: {
@@ -35,6 +36,7 @@ export type CareerData = {
   certifications: Certification[];
   awards?: Award[];
   education?: Education[];
+  nextItems?: NextItem[];
   links: LinkItem[];
 };
 

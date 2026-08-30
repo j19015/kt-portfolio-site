@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { SITE } from "@/lib/site";
+import { INDEXABLE, SITE } from "@/lib/site";
 import "./globals.css";
 
 // self-host。ビルド時に外部へ取りに行かないのでCI/CDが落ちない
@@ -31,7 +31,9 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
+  robots: INDEXABLE
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
 };
 
 export default function RootLayout({

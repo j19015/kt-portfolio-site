@@ -1,19 +1,50 @@
 {
-  "_comment": "見せたいリポジトリをここに並べる。この順で表示され、ここに無いものは出ない。説明を上書きしたいときは overrides に書く",
-  "feature": [
-    "kt-portfolio-site",
-    "kt-tech.blog",
-    "lgtm-generator",
-    "react-vite-template"
-  ],
+  "_comment": "見せたい作品をここに並べる。この順で表示され、ここに無いものは出ない。GitHubから取れるのはURLと更新日だけなので、見せ方（サムネイル・技術スタック・工夫した点）はこのファイルに書く",
+  "feature": ["kt-portfolio-site", "kt-tech.blog"],
   "overrides": {
     "kt-portfolio-site": {
       "label": "Portfolio",
-      "description": "このサイト。React Three Fiber の粒子表現と、ブログRSS・GitHub APIからのビルド時自動更新で構成している。"
+      "homepage": "https://me.kt-tech.blog",
+      "repo": "https://github.com/j19015/kt-portfolio-site",
+      "thumbnail": "/works/portfolio.webp",
+      "thumbnailAlt": "粒子の環の中央に KOKI TAKAHASHI と表示されたポートフォリオのヒーロー画面",
+      "role": "個人開発 / 設計・実装・運用",
+      "description": "React Three Fiber の粒子表現をスクロールでくぐり抜ける1枚のランディングページ。粒子の環は経歴1件につき1つ対応していて、data/career.json を1件足せば環も自動で増える。",
+      "notes": [
+        "スクロール量を React の state に載せず、ミュータブルなオブジェクトを useFrame から直接読んで再レンダリングを起こさずに60fpsを保つ",
+        "外部要因でCIを落とさない。フォントは self-host し、ブログRSSとGitHub APIは取得に失敗しても前回のJSONのままビルドを続行する"
+      ],
+      "stack": [
+        "Next.js 15",
+        "React Three Fiber",
+        "GLSL",
+        "TypeScript",
+        "Tailwind CSS v4",
+        "Motion",
+        "Cloudflare Pages"
+      ]
     },
     "kt-tech.blog": {
       "label": "Tech Blog",
-      "description": "Next.js + Cloudflare Pages で運用している技術ブログ。Markdown・KaTeX・Mermaid に対応。"
+      "homepage": "https://kt-tech.blog",
+      "repo": "https://github.com/j19015/kt-tech.blog",
+      "thumbnail": "/works/blog.webp",
+      "thumbnailAlt": "「技術と創造性が交わる場所」の見出しと記事カードが並ぶ技術ブログのトップページ",
+      "role": "個人開発 / 2023年から運用中",
+      "description": "Notion をヘッドレスCMSとして使う技術ブログ。記事は Notion に書くだけで、markdown-it でのレンダリング・OGP画像の生成・サイトマップの更新まで自動で走る。Markdown・KaTeX・Mermaid に対応。",
+      "notes": [
+        "Cloudflare の Cache Rule（7日TTL）で全ページをCDNから返す。デプロイのたびに GitHub Actions がキャッシュのパージとウォームまで流す",
+        "記事のアイキャッチは Gemini API で自動生成し、WebP に変換して R2 に置いている"
+      ],
+      "stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Notion API",
+        "Tailwind CSS",
+        "Cloudflare Pages",
+        "R2"
+      ]
     }
   }
 }

@@ -2,9 +2,9 @@
   {
     "name": "kt-portfolio-site",
     "label": "Portfolio",
-    "description": "このサイト。React Three Fiber の粒子表現と、ブログRSS・GitHub APIからのビルド時自動更新で構成している。",
+    "description": "React Three Fiber の粒子表現をスクロールでくぐり抜ける1枚のランディングページ。粒子の環は経歴1件につき1つ対応していて、data/career.json を1件足せば環も自動で増える。",
     "url": "https://github.com/j19015/kt-portfolio-site",
-    "homepage": "https://kt-portfolio-site.vercel.app",
+    "homepage": "https://me.kt-tech.blog",
     "language": "TypeScript",
     "stars": 0,
     "topics": [],
@@ -13,34 +13,12 @@
   {
     "name": "kt-tech.blog",
     "label": "Tech Blog",
-    "description": "Next.js + Cloudflare Pages で運用している技術ブログ。Markdown・KaTeX・Mermaid に対応。",
+    "description": "Notion をヘッドレスCMSとして使う技術ブログ。記事は Notion に書くだけで、markdown-it でのレンダリング・OGP画像の生成・サイトマップの更新まで自動で走る。Markdown・KaTeX・Mermaid に対応。",
     "url": "https://github.com/j19015/kt-tech.blog",
     "homepage": "https://kt-tech.blog",
     "language": "TypeScript",
     "stars": 0,
     "topics": [],
     "updatedAt": "2026-08-30"
-  },
-  {
-    "name": "lgtm-generator",
-    "label": null,
-    "description": "LGTM画像を生成します。",
-    "url": "https://github.com/j19015/lgtm-generator",
-    "homepage": "https://j19015.github.io/lgtm-generator",
-    "language": "HTML",
-    "stars": 0,
-    "topics": [],
-    "updatedAt": "2025-11-19"
-  },
-  {
-    "name": "react-vite-template",
-    "label": null,
-    "description": "ReactとViteを用いてSPA開発を行っていく際のtemplateを作成",
-    "url": "https://github.com/j19015/react-vite-template",
-    "homepage": "https://j19015.github.io/react-vite-template/",
-    "language": "TypeScript",
-    "stars": 0,
-    "topics": [],
-    "updatedAt": "2025-11-13"
   }
 ]
