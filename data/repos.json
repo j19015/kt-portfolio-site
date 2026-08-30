@@ -5,7 +5,7 @@
     "description": "このサイト。React Three Fiber の粒子表現と、ブログRSS・GitHub APIからのビルド時自動更新で構成している。",
     "url": "https://github.com/j19015/kt-portfolio-site",
     "homepage": "https://kt-portfolio-site.vercel.app",
-    "language": "CSS",
+    "language": "TypeScript",
     "stars": 0,
     "topics": [],
     "updatedAt": "2026-08-30"
