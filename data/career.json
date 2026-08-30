@@ -1,0 +1,378 @@
+{
+  "profile": {
+    "nameJa": "高橋 幸希",
+    "nameEn": "Koki Takahashi",
+    "title": "フルサイクルエンジニア",
+    "location": "静岡県浜松市（フルリモート）",
+    "summary": "静岡県浜松市からフルリモートで働くフルサイクルエンジニアです。キャリアはバックエンドから始まり、現在は React / TypeScript を中心としたフロントエンドを主戦場にしつつ、時期やプロダクトによっては Node.js / Python(FastAPI) のバックエンドや AWS / Azure のクラウド構築にも軸足を移して開発しています。技術選定から設計・実装・運用まで一貫して担当できることと、CI・コーディング規約・ブランチ戦略といった開発を回す仕組みを整えられることが強みです。最近は AI エージェント（Claude Code）を個人の効率化で終わらせず、チームで同じ品質で使える形に落とし込むことに関心があります。",
+    "next": "フロントエンドを軸にしつつ、必要な領域は自分で取りに行ける T 字型のエンジニアでありたいと考えています。今後は AI エージェントを前提にした開発フローの設計、DX（Developer Experience）の向上と開発基盤の整備、技術選定・アーキテクチャ設計に取り組み、技術面からチームを支えられる範囲を広げていきたいです。"
+  },
+  "career": [
+    {
+      "company": "KDDIアジャイル開発センター株式会社",
+      "product": null,
+      "role": "メンバー",
+      "start": "2026-07",
+      "end": null,
+      "description": "スクラムチームの一員として、新規プロダクトの開発を担当。React / TypeScript による SPA 基盤の設計・構築と、Python(FastAPI) / .NET(C#) での API 開発を行っています。あわせて CI・コーディング規約・ブランチ戦略・開発環境の整備といった、開発を回す仕組みづくりにも取り組んでいます。",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Python",
+        "FastAPI",
+        ".NET (C#)",
+        "AWS",
+        "GitHub Actions"
+      ]
+    },
+    {
+      "company": "生成AIプロダクト開発（AWS・業務委託）",
+      "product": null,
+      "role": "メンバー",
+      "start": "2025-12",
+      "end": null,
+      "description": "生成AI / LLM を活用したプロダクト開発に、フロントエンド・バックエンド・インフラを横断して参画。RAG による検索基盤とその周辺 UI の設計・実装、検索の後処理やドキュメント同期基盤の構築、Terraform でのインフラ構築までを担当しています。主力リポジトリでは全コミットの約半数を書いています。",
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "FastAPI",
+        "Python",
+        "PostgreSQL",
+        "OpenSearch",
+        "MCP",
+        "AWS (ECS / Cognito / Lambda)",
+        "Terraform"
+      ]
+    },
+    {
+      "company": "生成AIプロダクト開発（Azure・業務委託）",
+      "product": null,
+      "role": "メンバー",
+      "start": "2025-01",
+      "end": null,
+      "description": "生成AI を活用したシステム開発に、フロントエンド・バックエンド・インフラを横断して参画。LLM によるドキュメント解析・レビュー支援機能や、マルチエージェント構成の設計・実装、認証基盤の統一、Terraform でのインフラ構築までを担当しています。レビュー工数を約60%削減しました。",
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "FastAPI",
+        "Python",
+        "PostgreSQL",
+        "Azure OpenAI",
+        "Azure AI Search",
+        "Azure Document Intelligence",
+        "AutoGen",
+        "Terraform"
+      ]
+    },
+    {
+      "company": "株式会社ブイキューブ",
+      "product": "EventDX プラットフォーム",
+      "role": "メンバー",
+      "start": "2025-01",
+      "end": "2026-06",
+      "description": "BtoBtoC のイベントDXプラットフォームのフロントエンド開発を担当。React / TypeScript / Vite に Nx を用いたモノレポ構成で、視聴画面のコンポーネント設計から実装まで担当しました。Agora SDK によるリアルタイム映像音声配信を実装しています。",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Nx",
+        "Agora SDK"
+      ]
+    },
+    {
+      "company": "株式会社ブイキューブ",
+      "product": "VCP（新規セミナー配信プロダクト）",
+      "role": "メンバー",
+      "start": "2024-04",
+      "end": "2024-12",
+      "description": "新規セミナー配信プロダクトのバックエンド・フロントエンド開発を担当。React での視聴画面開発と Agora SDK での映像音声配信に加え、Firebase (Firestore / Cloud Functions / Pub/Sub) によるリアルタイム連携・イベント駆動アーキテクチャを構築しました。",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Agora SDK",
+        "Firebase (Firestore / Cloud Functions / Pub/Sub)",
+        "Storybook"
+      ]
+    },
+    {
+      "company": "株式会社ブイキューブ",
+      "product": "V-CUBE セミナー",
+      "role": "メンバー",
+      "start": "2023-04",
+      "end": "2024-03",
+      "description": "入社後1〜2ヶ月は QA として Autify を用いた E2E テストを担当。その後バックエンドに移り、AWS CDK による IaC、Lambda / MediaLive を用いたサーバーレス配信基盤の開発、CloudWatch での運用監視、CircleCI での CI/CD を担当しました。",
+      "stack": [
+        "TypeScript",
+        "Node.js",
+        "AWS CDK",
+        "AWS Lambda",
+        "AWS MediaLive",
+        "CloudWatch",
+        "CircleCI",
+        "Autify"
+      ]
+    },
+    {
+      "company": "株式会社Diafa（業務委託）",
+      "product": "con-cafe.jp",
+      "role": "メンバー",
+      "start": "2024-04",
+      "end": "2025-11",
+      "description": "全国のコンセプトカフェ情報サービスの開発を担当。技術選定・アーキテクチャ設計からインフラ構築まで一貫して担当し、App Runner / Amplify の比較検討を含む AWS 構成の設計を行いました。",
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "CSS Modules",
+        "Node.js",
+        "Prisma",
+        "PostgreSQL",
+        "AWS (App Runner / Amplify / Lambda)"
+      ]
+    },
+    {
+      "company": "株式会社toraco（業務委託）",
+      "product": null,
+      "role": "メンバー",
+      "start": "2024-12",
+      "end": "2025-03",
+      "description": "Wi-Fi レンタルカート事業のサイト開発を担当。カート / 決済フローの実装と、既存システムの保守を行いました。",
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Node.js"
+      ]
+    },
+    {
+      "company": "株式会社インフラトップ（DMM WEBCAMP / 業務委託）",
+      "product": null,
+      "role": "テックメンター",
+      "start": "2021-11",
+      "end": "2025-07",
+      "description": "プログラミングスクールのテックメンターとして、受講生からの技術的な質問対応、コードレビューとデバッグ支援、Rails / AWS (EC2, RDS) の環境構築サポート、学習進捗の伴走を担当しました。",
+      "stack": [
+        "Ruby on Rails",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Git",
+        "AWS (EC2 / RDS)"
+      ]
+    },
+    {
+      "company": "エデュケーショナル・デザイン株式会社（業務委託）",
+      "product": null,
+      "role": "対面教室メンター",
+      "start": "2022-05",
+      "end": "2023-03",
+      "description": "小学生〜高校生向けの対面プログラミングスクールでメンターとして従事。Minecraft や Scratch を用いたプログラミング指導と、生徒一人ひとりのレベルに合わせた学習進捗のフォローアップを担当しました。",
+      "stack": [
+        "Minecraft",
+        "Scratch"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        "TypeScript",
+        "JavaScript",
+        "Python",
+        "Ruby",
+        "Go"
+      ]
+    },
+    {
+      "category": "Frontend",
+      "items": [
+        "React",
+        "Next.js (App Router)",
+        "Vite",
+        "Nx",
+        "Redux",
+        "TanStack Router / Query",
+        "Zustand",
+        "Jotai",
+        "React Hook Form",
+        "Zod",
+        "Storybook"
+      ]
+    },
+    {
+      "category": "Styling",
+      "items": [
+        "Tailwind CSS",
+        "CSS Modules",
+        "Sass",
+        "MUI"
+      ]
+    },
+    {
+      "category": "Backend",
+      "items": [
+        "Node.js",
+        "Express",
+        "FastAPI",
+        "Ruby on Rails",
+        "Prisma"
+      ]
+    },
+    {
+      "category": "Database",
+      "items": [
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "SQLite"
+      ]
+    },
+    {
+      "category": "Testing",
+      "items": [
+        "Vitest",
+        "Jest",
+        "Testing Library",
+        "Playwright"
+      ]
+    },
+    {
+      "category": "AWS",
+      "items": [
+        "AWS CDK",
+        "Lambda",
+        "MediaLive",
+        "App Runner",
+        "Amplify",
+        "S3",
+        "EC2",
+        "RDS"
+      ]
+    },
+    {
+      "category": "Azure / GCP",
+      "items": [
+        "Azure Functions",
+        "Azure OpenAI",
+        "Azure Document Intelligence",
+        "Google Cloud"
+      ]
+    },
+    {
+      "category": "Firebase",
+      "items": [
+        "Firestore",
+        "Cloud Functions",
+        "Authentication"
+      ]
+    },
+    {
+      "category": "AI / LLM / RAG",
+      "items": [
+        "Claude Code",
+        "GPT",
+        "Gemini",
+        "Amazon Bedrock Knowledge Bases",
+        "Azure AI Search",
+        "AutoGen",
+        "MCP"
+      ]
+    },
+    {
+      "category": "Auth / CMS",
+      "items": [
+        "Auth.js",
+        "Microsoft Entra ID",
+        "microCMS",
+        "Strapi"
+      ]
+    },
+    {
+      "category": "DevOps / Tools",
+      "items": [
+        "GitHub Actions",
+        "CircleCI",
+        "Docker",
+        "Terraform",
+        "pre-commit",
+        "Cloudflare",
+        "Jira",
+        "Notion",
+        "Figma"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "name": "応用情報技術者試験",
+      "date": "2021-12"
+    },
+    {
+      "name": "国家技能検定 電子機器組み立て3級",
+      "date": "2018-12"
+    },
+    {
+      "name": "基本情報技術者試験",
+      "date": "2017-05"
+    },
+    {
+      "name": "C言語検定2級",
+      "date": null
+    }
+  ],
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/j19015"
+    },
+    {
+      "label": "Blog",
+      "url": "https://kt-tech.blog"
+    },
+    {
+      "label": "Qiita",
+      "url": "https://qiita.com/takakou"
+    },
+    {
+      "label": "X",
+      "url": "https://x.com/tech_koki"
+    },
+    {
+      "label": "Wantedly",
+      "url": "https://www.wantedly.com/id/kt_tech"
+    },
+    {
+      "label": "LAPRAS",
+      "url": "https://lapras.com/public/BWHAEVH"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/koki-takahashi-b48742303"
+    },
+    {
+      "label": "YOUTRUST",
+      "url": "https://youtrust.jp/users/meow_koki"
+    }
+  ],
+  "awards": [
+    {
+      "name": "三井不動産ハッカソン メンター賞",
+      "date": "2021-10"
+    },
+    {
+      "name": "サンギハックチャレンジ2021",
+      "date": "2021-10"
+    }
+  ],
+  "education": [
+    {
+      "school": "理工学部 情報科学科",
+      "note": "専門学校と併修",
+      "start": "2019-04",
+      "end": "2023-03"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "_comment": "見せたいリポジトリをここに並べる。この順で表示され、ここに無いものは出ない。説明を上書きしたいときは overrides に書く",
+  "feature": [
+    "kt-portfolio-site",
+    "kt-tech.blog",
+    "lgtm-generator",
+    "react-vite-template"
+  ],
+  "overrides": {
+    "kt-portfolio-site": {
+      "label": "Portfolio",
+      "description": "このサイト。React Three Fiber の粒子表現と、ブログRSS・GitHub APIからのビルド時自動更新で構成している。"
+    },
+    "kt-tech.blog": {
+      "label": "Tech Blog",
+      "description": "Next.js + Cloudflare Pages で運用している技術ブログ。Markdown・KaTeX・Mermaid に対応。"
+    }
+  }
+}

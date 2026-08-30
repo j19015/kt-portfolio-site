@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  /* 背景: ほぼ黒に紫を一滴。3Dの発光を受け止める暗さ */
+  --color-void: #08080c;
+  --color-abyss: #0d0d14;
+  --color-surface: #14141d;
+  --color-line: #23232f;
+
+  /* 前景 */
+  --color-ink: #f2f0ec;
+  --color-muted: #8c8a99;
+  --color-faint: #55535f;
+
+  /* アクセント: 琥珀を主役に。テック系の青一色から外す */
+  --color-ember: #ff9d4d;
+  --color-ember-dim: #c26a24;
+  --color-cyan: #6ee7f0;
+
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-void);
+  /* Lenisで制御するのでネイティブのsmoothは切る */
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+::selection {
+  background: var(--color-ember);
+  color: var(--color-void);
+}
+
+/* 3Dキャンバスは常に背面に固定。DOMのセクションがその上を流れる */
+.canvas-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

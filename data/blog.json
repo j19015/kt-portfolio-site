@@ -1,0 +1,38 @@
+[
+  {
+    "title": "【設定・環境構築】herdr を実際に使ってみる — 「エージェントの状態が見える」は何ができることなのか",
+    "url": "https://kt-tech.blog/blogs/herdr-agent-state-in-practice",
+    "date": "2026-08-23",
+    "description": "【設定・環境構築】herdr を実際に使ってみる — 「エージェントの状態が見える」は何ができることなのか"
+  },
+  {
+    "title": "【設定・環境構築】Claude Code の Remote Control を一通り試す — 「一番直してほしい機能」が今日どこまで直ったか",
+    "url": "https://kt-tech.blog/blogs/claude-code-remote-control-reliability-update",
+    "date": "2026-08-22",
+    "description": "【設定・環境構築】Claude Code の Remote Control を一通り試す — 「一番直してほしい機能」が今日どこまで直ったか"
+  },
+  {
+    "title": "【設計】Cursor Origin は GitHub を置き換えない — 「正」を残したまま、レビューの場所だけ移す設計",
+    "url": "https://kt-tech.blog/blogs/cursor-origin-mirror-design",
+    "date": "2026-08-19",
+    "description": "【設計】Cursor Origin は GitHub を置き換えない — 「正」を残したまま、レビューの場所だけ移す設計"
+  },
+  {
+    "title": "【環境構築】Ghostty・tmux・herdr・cmux をどう積むか — ターミナルを層で考える",
+    "url": "https://kt-tech.blog/blogs/terminal-stack-for-coding-agents",
+    "date": "2026-08-15",
+    "description": "【環境構築】Ghostty・tmux・herdr・cmux をどう積むか — ターミナルを層で考える"
+  },
+  {
+    "title": "【設計】Claude Code のセッション同士を会話させる — SendMessage と、権限が越境しない設計",
+    "url": "https://kt-tech.blog/blogs/claude-code-cross-session-messaging",
+    "date": "2026-08-15",
+    "description": "【設計】Claude Code のセッション同士を会話させる — SendMessage と、権限が越境しない設計"
+  },
+  {
+    "title": "【環境構築】Claude Code に対話コマンドを任せる — tmux・herdr・cmux はどの層で戦っているか",
+    "url": "https://kt-tech.blog/blogs/terminal-multiplexer-for-coding-agents",
+    "date": "2026-08-14",
+    "description": "【環境構築】Claude Code に対話コマンドを任せる — tmux・herdr・cmux はどの層で戦っているか"
+  }
+]
