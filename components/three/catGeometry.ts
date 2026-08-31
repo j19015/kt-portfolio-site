@@ -138,7 +138,12 @@ const HIND_PROFILE = profile([
 const TAIL_RADII = [0.05, 0.043, 0.036, 0.03, 0.024, 0.016];
 
 /** 耳。三角の板。猫だと分かる最小限の手がかりなのでここだけは形を作り込む */
-function ear(s: Sink, side: 1 | -1, count: number) {
+/**
+ * 耳。`fold` を指定するとスコティッシュフォールドの折れ耳になる。
+ * 立ち耳は根本から先へまっすぐ伸びるが、折れ耳は途中から前へ倒れて
+ * 頭の丸みに沿う。三角が消えるぶん頭のシルエットが丸くなる
+ */
+function ear(s: Sink, side: 1 | -1, count: number, fold = false) {
   const base: [number, number, number] = [side * 0.105, 0.115, -0.05];
   // 外へ22度・後ろへ8度倒す
   const ax: [number, number, number] = [side * 0.372, 0.921, 0.122];
@@ -153,21 +158,23 @@ function ear(s: Sink, side: 1 | -1, count: number) {
     th[0] * ax[1] - th[1] * ax[0],
   ];
 
-  const H = 0.21;
-  const R = 0.085;
+  const H = fold ? 0.125 : 0.21;
+  const R = fold ? 0.075 : 0.085;
   for (let i = 0; i < count; i++) {
     const t = Math.pow(rnd(), 0.75);
     const a = rnd() * Math.PI * 2;
     const w = Math.pow(1 - t, 0.8);
     const cs = Math.cos(a) * R * w;
     const sn = Math.sin(a) * R * 0.32 * w;
+    // 折れ耳は半分から先が前へ落ちる。t^2 で先ほど強く曲がる
+    const droop = fold ? t * t * 0.13 : 0;
     push(
       s,
       BONE.HEAD,
       [
         base[0] + ax[0] * H * t + wide[0] * cs + th[0] * sn,
-        base[1] + ax[1] * H * t + wide[1] * cs + th[1] * sn,
-        base[2] + ax[2] * H * t + wide[2] * cs + th[2] * sn,
+        base[1] + ax[1] * H * t + wide[1] * cs + th[1] * sn - droop,
+        base[2] + ax[2] * H * t + wide[2] * cs + th[2] * sn - droop * 0.75,
       ],
       [wide[0] * cs + th[0] * sn * 3, wide[1] * cs + th[1] * sn * 3, wide[2] * cs + th[2] * sn * 3],
       1,
@@ -175,7 +182,7 @@ function ear(s: Sink, side: 1 | -1, count: number) {
   }
 }
 
-export function buildCatGeometry(quality: "low" | "high") {
+export function buildCatGeometry(quality: "low" | "high", fold = false) {
   const k = quality === "high" ? 1 : 0.58;
   const s: Sink = { bone: [], local: [], normal: [], seed: [], scale: [] };
 
@@ -214,8 +221,8 @@ export function buildCatGeometry(quality: "low" | "high") {
   // ---- 頭 ----
   ellipsoid(s, BONE.HEAD, [0, 0, -0.09], [0.17, 0.155, 0.185], Math.round(200 * k));
   ellipsoid(s, BONE.HEAD, [0, -0.075, -0.245], [0.095, 0.075, 0.085], Math.round(70 * k), 0.85);
-  ear(s, -1, Math.round(65 * k));
-  ear(s, 1, Math.round(65 * k));
+  ear(s, -1, Math.round(65 * k), fold);
+  ear(s, 1, Math.round(65 * k), fold);
 
   // ---- 脚 ----
   for (const [i, spec] of LEGS.entries()) {

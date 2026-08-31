@@ -38,9 +38,23 @@ const WARM = new THREE.Color("#ff9d4d"); // サイトの琥珀。足跡に使う
  * 画面上の横位置はおおよそ lane / lead で決まる。この比が近いと
  * 2匹が重なって1匹の妙な生き物に見えるので、必ず離して置くこと
  */
+/**
+ * 飼い猫2匹に合わせた毛色。どちらも同じ配置（頭頂・背中・尻尾に色、
+ * 顔の中央から胸・脚は白）で、乗る色だけが違う。
+ * 暗い画面で沈まないよう、写真の色より明度を上げてある。
+ */
+const COAT = {
+  /** 茶白。頭と背中のオレンジ */
+  ginger: new THREE.Color("#e79a58"),
+  /** グレー白。青みのあるグレー */
+  grey: new THREE.Color("#9aa6b4"),
+  /** 白い部分。純白だと浮くのでわずかに暖色へ寄せる */
+  white: new THREE.Color("#f6efe4"),
+};
+
 const CATS = [
-  { lane: 15, lead: 34, weave: 0.0, scale: 1.0, tailUp: true, gait: 0.0 },
-  { lane: 12, lead: 64, weave: 2.4, scale: 0.86, tailUp: false, gait: 0.37 },
+  { lane: 15, lead: 34, weave: 0.0, scale: 1.0, tailUp: true, gait: 0.0, coat: COAT.ginger },
+  { lane: 12, lead: 64, weave: 2.4, scale: 0.86, tailUp: false, gait: 0.37, coat: COAT.grey },
 ];
 
 function buildDust(quality: "low" | "high") {
@@ -94,7 +108,12 @@ export default function NightField({
   poolCount: number;
 }) {
   const dust = useMemo(() => buildDust(quality), [quality]);
-  const catGeo = useMemo(() => buildCatGeometry(quality), [quality]);
+  // 1匹目は折れ耳（スコティッシュフォールド）なので、耳の形が違う。
+  // ジオメトリを2種類作って猫ごとに使い分ける
+  const catGeos = useMemo(
+    () => [buildCatGeometry(quality, true), buildCatGeometry(quality, false)],
+    [quality],
+  );
 
   const dustMat = useMemo(
     () =>
@@ -192,6 +211,8 @@ export default function NightField({
             uStretch: { value: 0 },
             uCool: { value: COOL.clone() },
             uWarm: { value: WARM.clone() },
+            uCoat: { value: cfg.coat.clone() },
+            uWhite: { value: COAT.white.clone() },
             uLit: { value: 0 },
             uOpacity: { value: 0 },
           },
@@ -212,7 +233,7 @@ export default function NightField({
     seeded.current = false;
     return () => {
       dust.dispose();
-      catGeo.dispose();
+      for (const g of catGeos) g.dispose();
       dustMat.dispose();
       pools.geometry.dispose();
       pools.material.dispose();
@@ -220,7 +241,7 @@ export default function NightField({
       paws.material.dispose();
       for (const c of cats) c.material.dispose();
     };
-  }, [dust, catGeo, dustMat, pools, paws, cats]);
+  }, [dust, catGeos, dustMat, pools, paws, cats]);
 
   useFrame((state, delta) => {
     const d = Math.min(delta, 0.05); // タブ復帰時の巨大なdeltaを吸収
@@ -296,7 +317,7 @@ export default function NightField({
       <mesh geometry={pools.geometry} material={pools.material} frustumCulled={false} />
       <mesh geometry={paws.geometry} material={paws.material} frustumCulled={false} />
       {cats.map((c, i) => (
-        <points key={i} geometry={catGeo} material={c.material} frustumCulled={false} />
+        <points key={i} geometry={catGeos[i]} material={c.material} frustumCulled={false} />
       ))}
     </>
   );

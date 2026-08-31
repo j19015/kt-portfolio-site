@@ -24,6 +24,7 @@ export const catVertex = /* glsl */ `
   varying float vRim;
   varying float vFacing;
   varying float vSeed;
+  varying float vCoat;   // 1 = 毛色の付く部分 / 0 = 白い部分
 
   void main() {
     mat4 B = uBones[int(aBone + 0.5)];
@@ -49,6 +50,29 @@ export const catVertex = /* glsl */ `
     // 裏側の点を沈めておかないと、体を透かした線が重なって濁る
     vFacing = smoothstep(-0.15, 0.3, facing);
     vSeed = aSeed;
+
+    // 毛色の付く場所。飼い猫2匹の写真に合わせている。
+    // どちらも頭頂・背中・尻尾に色が乗り、顔の中央から胸・脚は白い。
+    // 骨番号は 0=胴 1=頭 2-5=脚 6以降=尻尾
+    float coat = 0.0;
+    if (aBone < 0.5) {
+      // 胴。背中側が濃く腹側が白い。境目は水平ではなく少し斜めに
+      coat = smoothstep(-0.02, 0.11, aLocal.y + aLocal.z * 0.06) * 0.92;
+    } else if (aBone < 1.5) {
+      // 頭。上半分に色。鼻筋を白が上るので中央は抜く
+      float top = smoothstep(-0.03, 0.07, aLocal.y);
+      float muzzle = 1.0 - smoothstep(0.028, 0.075, abs(aLocal.x));
+      float front = 1.0 - smoothstep(-0.24, -0.05, aLocal.z);
+      coat = top * (1.0 - muzzle * front);
+    } else if (aBone < 5.5) {
+      // 脚。根本だけ染めて先は白い靴下
+      coat = (1.0 - smoothstep(-0.34, -0.12, aLocal.y)) * 0.22;
+    } else {
+      coat = 0.94; // 尻尾
+    }
+    // 毛色の境目は現実の猫でもぼやけているので粒子ごとに散らす
+    vCoat = clamp(coat + (aSeed - 0.5) * 0.18, 0.0, 1.0);
+
     vFade = smoothstep(3.0, 26.0, dist) * (1.0 - smoothstep(170.0, 280.0, dist));
 
     gl_Position = projectionMatrix * mv;
@@ -62,6 +86,8 @@ export const catFragment = /* glsl */ `
 
   uniform vec3 uCool;
   uniform vec3 uWarm;
+  uniform vec3 uCoat;    // その猫の毛色
+  uniform vec3 uWhite;   // 白い部分
   uniform float uOpacity;
   uniform float uLit;    // 床の月明かりに入っているか 0..1
   uniform float uTime;
@@ -70,6 +96,7 @@ export const catFragment = /* glsl */ `
   varying float vRim;
   varying float vFacing;
   varying float vSeed;
+  varying float vCoat;
 
   void main() {
     vec2 uv = gl_PointCoord - 0.5;
@@ -85,7 +112,11 @@ export const catFragment = /* glsl */ `
     // ごく僅かな明滅。止まっていても画が死なない
     intensity *= 0.82 + 0.18 * sin(uTime * 1.9 + vSeed * 21.0);
 
-    vec3 col = mix(uCool, uWarm, clamp(vRim * 0.5 + vSeed * 0.15, 0.0, 1.0));
+    // 毛色（白い部分と色の付いた部分）の上に、輪郭の光を乗せる。
+    // 輪郭を毛色より明るくしないと、暗がりで体の形が読めなくなる
+    vec3 fur = mix(uWhite, uCoat, vCoat);
+    vec3 rimCol = mix(uCool, uWarm, clamp(vRim * 0.5 + vSeed * 0.15, 0.0, 1.0));
+    vec3 col = mix(fur, rimCol, clamp(vRim * 0.72, 0.0, 1.0));
 
     gl_FragColor = vec4(col, alpha * vFade * uOpacity * intensity);
     #include <colorspace_fragment>
