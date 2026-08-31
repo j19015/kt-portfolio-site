@@ -202,3 +202,63 @@ export function getData(locale: Locale): LocalizedData {
   }
   return d;
 }
+
+/**
+ * 在籍期間を「3年3ヶ月」の形にする。
+ * 同じ会社の担当プロダクトをまとめて見せるとき、会社ごとの長さを添える
+ */
+export function formatDuration(
+  start: string,
+  end: string | null,
+  locale: "ja" | "en",
+): string {
+  const m = months(start, end);
+  const y = Math.floor(m / 12);
+  const rest = m % 12;
+  if (locale === "en") {
+    const yy = y > 0 ? `${y} yr${y > 1 ? "s" : ""}` : "";
+    const mm = rest > 0 ? `${rest} mo` : "";
+    return [yy, mm].filter(Boolean).join(" ") || "1 mo";
+  }
+  const yy = y > 0 ? `${y}年` : "";
+  const mm = rest > 0 ? `${rest}ヶ月` : "";
+  return `${yy}${mm}` || "1ヶ月";
+}
+
+/**
+ * 同じ会社の連続したエントリを1つにまとめる。
+ *
+ * ブイキューブのように1社で複数プロダクトを担当した場合、
+ * 会社名が縦に3回並んで「3社在籍した」ようにも読めてしまう。
+ * 会社を見出しにして、担当プロダクトをその中に並べる形にする。
+ *
+ * 一覧は新しい順に整列済みなので、隣り合うものだけを見れば足りる。
+ */
+export function groupByCompany(entries: CareerEntry[]) {
+  type Group = {
+    company: string;
+    employment: Employment;
+    start: string;
+    end: string | null;
+    items: CareerEntry[];
+  };
+  const groups: Group[] = [];
+  for (const e of entries) {
+    const last = groups[groups.length - 1];
+    if (last && last.company === e.company && last.employment === e.employment) {
+      last.items.push(e);
+      // 会社としての在籍期間は、束ねた全部を覆う範囲になる
+      if (e.start < last.start) last.start = e.start;
+      if (last.end !== null && (e.end === null || e.end > last.end)) last.end = e.end;
+    } else {
+      groups.push({
+        company: e.company,
+        employment: e.employment,
+        start: e.start,
+        end: e.end,
+        items: [e],
+      });
+    }
+  }
+  return groups;
+}
