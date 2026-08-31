@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { CatRig, CAT_SIZE } from "./catRig";
+import { CatRig, CAT_SIZE, STRIDE } from "./catRig";
+import { emitPaw } from "./pawTrail";
 import { buildCatGeometry } from "./catGeometry";
 import { catVertex, catFragment } from "./catShader";
 import {
@@ -56,6 +57,57 @@ const CATS = [
   { lane: 15, lead: 34, weave: 0.0, scale: 1.0, tailUp: true, gait: 0.0, coat: COAT.ginger },
   { lane: 12, lead: 64, weave: 2.4, scale: 0.86, tailUp: false, gait: 0.37, coat: COAT.grey },
 ];
+
+/**
+ * カメラの前方の余白に、姿の見えない猫が横切った跡を置く。
+ *
+ * 歩いている2匹の足跡は画面の右寄りにしか出ないため、左右が空いたままになる。
+ * そこを埋めるが、ランダムな位置に1つずつ撒くと「点が散っている」だけで
+ * 足跡に見えない。実際に歩いた跡に見せるため、
+ * 4〜7歩ぶんを一列に、左右交互の振り幅を付けて並べる。
+ */
+function strewGhostTrail(
+  camZ: number,
+  laneScale: number,
+  birth: number,
+  rng: () => number,
+) {
+  // ほとんどを右側に置く。
+  // セクションの暗幕は左が濃く右が薄い（左95% → 右45%）ので、
+  // 左に置いた足跡は暗幕に沈んでほぼ見えない。
+  // ごくまれに左へ出すのは、右だけに規則的に並ぶのを避けるため
+  const side = rng() < 0.18 ? -1 : 1;
+  // 歩いている猫（lane 12〜15）より外側の余白へ
+  const lane = (side < 0 ? 40 + rng() * 14 : 27 + rng() * 22) * side * laneScale;
+  // カメラの十分前方に置く。近すぎると唐突に湧いて見える
+  const z0 = camZ - (150 + rng() * 130);
+  // 進む向き。手前へ来るか奥へ行くかを半々で
+  const dir = rng() < 0.5 ? 1 : -1;
+  // 少し斜めに歩かせると、まっすぐ並ぶより自然に見える
+  const drift = (rng() - 0.5) * 0.5;
+
+  const steps = 4 + Math.floor(rng() * 4);
+  const stride = STRIDE * (0.85 + rng() * 0.3);
+  const size = 0.8 + rng() * 0.35;
+
+  for (let i = 0; i < steps; i++) {
+    const z = z0 + dir * i * stride;
+    const x = lane + drift * i * stride;
+    // 左右の足を交互に。歩幅の半分ずらすと歩いた列に見える
+    const lr = i % 2 === 0 ? 1 : -1;
+    const yaw = Math.atan2(drift, dir) + (rng() - 0.5) * 0.12;
+    emitPaw(
+      x + lr * CAT_SIZE * 0.16,
+      z,
+      yaw,
+      // 1歩ずつ時間をずらす。まとめて現れず、歩いてきたように点いていく
+      birth + i * 0.14,
+      i % 2 === 0,
+      lr,
+      size,
+    );
+  }
+}
 
 function buildDust(quality: "low" | "high") {
   const floor = quality === "high" ? 3200 : 1100;
@@ -225,6 +277,8 @@ export default function NightField({
   const time = useRef(0);
   const fade = useRef(0);
   const seeded = useRef(false);
+  /** 次に余白へ足跡を撒くカメラZ。進んだ距離で間隔を測る */
+  const nextGhostZ = useRef<number | null>(null);
   const prevCamZ = useRef(START_Z);
   const camSpeed = useRef(0);
 
@@ -300,6 +354,16 @@ export default function NightField({
       // 開いた時点で既に歩いてきたように、少し前の足跡を置いておく
       for (const { rig } of cats) rig.seedTrail(t);
       seeded.current = true;
+      nextGhostZ.current = camZ - 260;
+    }
+
+    // 進んだ距離で「たまに」を測る。時間で測るとスクロールを止めている間も
+    // 湧いてしまい、止まっているのに足跡が増える不自然さが出る。
+    // 前進しているときだけ、一定距離ごとに1列置く
+    if (nextGhostZ.current !== null && camZ < nextGhostZ.current) {
+      strewGhostTrail(camZ, laneScale, t, Math.random);
+      // 次までの間隔は毎回ばらつかせる。等間隔だと規則性が見えてしまう
+      nextGhostZ.current = camZ - (240 + Math.random() * 320);
     }
 
     paws.material.uniforms.uTime.value = t;
