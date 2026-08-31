@@ -13,7 +13,7 @@
       "description": "Building a new product as part of a scrum team. I set up a monorepo from scratch — a React / TypeScript / Vite SPA with a Python (FastAPI) and MongoDB backend — and made the conventions enforceable by configuration rather than prose, for example encoding the direction of dependencies (app → features → shared) as ESLint rules. I also built CI that only inspects the components that actually changed, and consolidated the guidelines for AI agents into a single AGENTS.md so the same rules apply whichever tool is used. In roughly the first month and a half I landed over 200 commits and launched three new services."
     },
     "株式会社エムニ（業務委託）|2025-12": {
-      "company": "Emni",
+      "company": "Emuni",
       "product": "Generative AI product development (AWS)",
       "role": "Member",
       "description": "Working across frontend, backend and infrastructure on a generative-AI product. I design and build the RAG-based search layer and the UI around it, the post-processing of search results, the document sync pipeline, and the infrastructure in Terraform. I also built the clarification flow — when a question is vague, the system generates choices from documents that actually match and narrows things down — and the UI that shows the exact source page alongside each answer."
