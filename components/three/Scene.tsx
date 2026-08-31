@@ -3,10 +3,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
-import RingField, { START_Z, travelFor } from "./RingField";
+import NightField, { START_Z, CAMERA_Y, travelFor } from "./NightField";
 import { CAREER_COUNT } from "@/lib/career";
 import { scrollState } from "@/lib/scroll";
 import { markReady } from "@/lib/boot";
+
+/** 床を見下ろす角度。深くすると床が近づいて猫が小さく見える */
+const BASE_PITCH = -0.055;
 
 /**
  * カメラをZ軸に沿って進める。
@@ -35,10 +38,11 @@ function CameraRig({ travel }: { travel: number }) {
     cam.position.z += (desiredZ - cam.position.z) * k;
 
     // マウスに合わせて視点をわずかに振る。動きすぎると酔うので控えめ
-    cam.position.x += (pointer.current.x * 1.6 - cam.position.x) * k * 0.5;
-    cam.position.y += (-pointer.current.y * 1.0 - cam.position.y) * k * 0.5;
+    cam.position.x += (pointer.current.x * 2.6 - cam.position.x) * k * 0.5;
+    cam.position.y += (CAMERA_Y - pointer.current.y * 1.6 - cam.position.y) * k * 0.5;
     cam.rotation.y += (-pointer.current.x * 0.05 - cam.rotation.y) * k * 0.5;
-    cam.rotation.x += (pointer.current.y * 0.035 - cam.rotation.x) * k * 0.5;
+    cam.rotation.x +=
+      (BASE_PITCH + pointer.current.y * 0.03 - cam.rotation.x) * k * 0.5;
   });
 
   return null;
@@ -48,9 +52,9 @@ export default function Scene() {
   // 端末性能で粒子数とポストエフェクトを切り替える
   const [quality, setQuality] = useState<"low" | "high" | null>(null);
 
-  // 経歴1件 = 環1つ。スクロールしきると全部くぐり抜ける長さになる
-  const ringCount = CAREER_COUNT;
-  const travel = travelFor(ringCount);
+  // 経歴1件 = 床に落ちた窓明かり1枚。スクロールしきると全部を通り過ぎる長さになる
+  const poolCount = CAREER_COUNT;
+  const travel = travelFor(poolCount);
 
   useEffect(() => {
     const mobile = window.innerWidth < 768;
@@ -75,16 +79,22 @@ export default function Scene() {
           alpha: true,
           powerPreference: "high-performance",
         }}
-        camera={{ position: [0, 0, START_Z], fov: 62, near: 0.1, far: 320 }}
+        camera={{
+          position: [0, CAMERA_Y, START_Z],
+          rotation: [BASE_PITCH, 0, 0],
+          fov: 62,
+          near: 0.1,
+          far: 320,
+        }}
         onCreated={() => markReady()}
       >
         <CameraRig travel={travel} />
-        <RingField quality={quality} ringCount={ringCount} />
+        <NightField quality={quality} poolCount={poolCount} />
         {quality === "high" && (
           <EffectComposer>
             <Bloom
-              intensity={1.1}
-              luminanceThreshold={0.12}
+              intensity={1.0}
+              luminanceThreshold={0.14}
               luminanceSmoothing={0.5}
               mipmapBlur
             />
