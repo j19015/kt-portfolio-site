@@ -1,6 +1,10 @@
 {
   "_comment": "見せたい作品をここに並べる。この順で表示され、ここに無いものは出ない。GitHubから取れるのはURLと更新日だけなので、見せ方（サムネイル・技術スタック・工夫した点）はこのファイルに書く",
-  "feature": ["kt-portfolio-site", "kt-tech.blog"],
+  "feature": [
+    "anoni",
+    "kt-portfolio-site",
+    "kt-tech.blog"
+  ],
   "overrides": {
     "kt-portfolio-site": {
       "label": "Portfolio",
@@ -44,6 +48,33 @@
         "Tailwind CSS",
         "Cloudflare Pages",
         "R2"
+      ]
+    },
+    "anoni": {
+      "label": "anoni",
+      "homepage": "https://anoni.space",
+      "repo": "",
+      "thumbnail": "/works/anoni.webp",
+      "thumbnailAlt": "anoni のトップページ。2人のキャラクターと「日常の共有を、優しい空間で」のコピー",
+      "role": "チーム開発 / フロントエンド・バックエンド",
+      "description": "キャラクターとの会話が自動で日記や記憶として蓄積されていく、日常共有アプリ。「日常の共有を、優しい空間で」をコンセプトに、他者からの評価や比較から離れた場所をつくっている。公開中のサービス。",
+      "notes": [
+        "Stripe によるサブスクリプション課金を実装し、実際に有料ユーザーが利用している",
+        "Cloudflare Workers 上で動く Next.js（OpenNext）。Prisma + PostgreSQL と NextAuth v5 で認証・データ基盤を構成",
+        "3人チームで参画から約2ヶ月で本番リリースし、その後も累計500件以上の Issue / PR をチームで回しながら月次で機能を追加している",
+        "「記憶」機能は会話ログをそのままではなく1日単位の日記に畳んでから pgvector でベクトル化し、過去の文脈を RAG で引ける設計にした"
+      ],
+      "stack": [
+        "Next.js 16",
+        "TypeScript",
+        "Prisma",
+        "PostgreSQL (pgvector)",
+        "NextAuth v5",
+        "TanStack Query",
+        "Stripe",
+        "Tailwind CSS",
+        "Cloudflare Workers",
+        "Bun"
       ]
     }
   }

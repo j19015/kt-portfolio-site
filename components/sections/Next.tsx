@@ -1,19 +1,24 @@
 "use client";
 
 import Section, { Reveal } from "@/components/ui/Section";
-import { DATA } from "@/lib/career";
+import { useLocale } from "@/components/LocaleProvider";
+import { getData } from "@/lib/career";
+import { UI } from "@/lib/i18n";
 
 export default function Next() {
-  const items = DATA.nextItems ?? [];
+  const { locale } = useLocale();
+  const data = getData(locale);
+  const items = data.nextItems;
+  const lead = UI[locale].nextLead;
 
   return (
     <Section id="next" index="04" label="What's Next">
       <Reveal>
         <p className="mb-16 max-w-2xl text-[clamp(1rem,2.2vw,1.35rem)] leading-[1.9] font-medium text-balance text-ink">
           {/* 3本の柱を貫く一行。ここだけ大きく置いて視線の起点にする */}
-          書ける範囲を広げるより、
-          <span className="text-ember">回せる範囲</span>
-          を広げたい。
+          {lead.pre}
+          <span className="text-ember">{lead.em}</span>
+          {lead.post}
         </p>
       </Reveal>
 
@@ -42,10 +47,10 @@ export default function Next() {
         ))}
       </ol>
 
-      {DATA.profile.next && (
+      {data.profile.next && (
         <Reveal delay={0.25}>
           <p className="mt-12 max-w-2xl border-l border-line pl-6 text-[13px] leading-[2] text-muted">
-            {DATA.profile.next}
+            {data.profile.next}
           </p>
         </Reveal>
       )}

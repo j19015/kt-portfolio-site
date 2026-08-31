@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { useLocale } from "@/components/LocaleProvider";
+import { UI } from "@/lib/i18n";
 import { SECTIONS } from "@/lib/site";
 import { scrollToSection } from "@/lib/scroll";
 
@@ -10,6 +12,7 @@ import { scrollToSection } from "@/lib/scroll";
  * 画面の大半を3Dに使うので、ナビは細く小さく置く。
  */
 export default function SideNav() {
+  const { locale } = useLocale();
   const [active, setActive] = useState<string>("hero");
 
   useEffect(() => {
@@ -36,7 +39,7 @@ export default function SideNav() {
       initial={{ opacity: 0, x: 12 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 1, delay: 1.8 }}
-      aria-label="セクション"
+      aria-label={UI[locale].navLabel}
       className="fixed top-1/2 right-5 z-30 hidden -translate-y-1/2 md:block lg:right-8"
     >
       <ul className="flex flex-col items-end gap-1">

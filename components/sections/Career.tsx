@@ -1,7 +1,9 @@
 "use client";
 
 import Section, { Reveal } from "@/components/ui/Section";
-import { CAREER, fmt, parseCompany, type CareerEntry } from "@/lib/career";
+import { useLocale } from "@/components/LocaleProvider";
+import { getData, fmt, type Employment, type CareerEntry } from "@/lib/career";
+import { UI } from "@/lib/i18n";
 
 /** 進行中を示すバッジ。琥珀のドットが静かに脈打つ */
 function ActiveBadge() {
@@ -19,7 +21,7 @@ function ActiveBadge() {
 }
 
 function Entry({ entry, index }: { entry: CareerEntry; index: number }) {
-  const { name } = parseCompany(entry.company);
+  const { locale } = useLocale();
   const active = entry.end === null;
 
   return (
@@ -28,17 +30,22 @@ function Entry({ entry, index }: { entry: CareerEntry; index: number }) {
         <span className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-ember/60 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100" />
 
         <div className="font-mono text-[11px] leading-relaxed text-faint">
-          <div className="text-ember/80">{fmt(entry.start)}</div>
-          <div className="my-1 h-3 w-px bg-line md:my-1.5" />
-          <div className={active ? "text-ink/70" : undefined}>
-            {fmt(entry.end)}
-          </div>
+          <div className="text-ember/80">{fmt(entry.start, locale)}</div>
+          {/* 開始と終了が同じ月なら「2022.08 〜 2022.08」と重ねて出さない */}
+          {entry.start !== entry.end && (
+            <>
+              <div className="my-1 h-3 w-px bg-line md:my-1.5" />
+              <div className={active ? "text-ink/70" : undefined}>
+                {fmt(entry.end, locale)}
+              </div>
+            </>
+          )}
         </div>
 
         <div>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <h3 className="font-display text-[clamp(1.05rem,2.4vw,1.5rem)] font-medium tracking-tight text-ink">
-              {name}
+              {entry.company}
             </h3>
             {active && <ActiveBadge />}
           </div>
@@ -79,6 +86,7 @@ function Group({
   sub: string;
   entries: CareerEntry[];
 }) {
+  const { locale } = useLocale();
   if (entries.length === 0) return null;
   const activeCount = entries.filter((e) => e.end === null).length;
 
@@ -89,11 +97,14 @@ function Group({
           <h3 className="font-display text-[1.15rem] font-medium tracking-tight text-ink">
             {label}
           </h3>
-          <span className="font-mono text-[10px] tracking-[0.22em] text-faint uppercase">
-            {sub}
-          </span>
+          {/* 英語では見出しそのものが Full-time / Contract なのでサブラベルは出ない */}
+          {sub && (
+            <span className="font-mono text-[10px] tracking-[0.22em] text-faint uppercase">
+              {sub}
+            </span>
+          )}
           <span className="ml-auto font-mono text-[10px] text-faint">
-            {entries.length} 件
+            {UI[locale].count(entries.length)}
             {activeCount > 0 && (
               <span className="ml-2 text-active/85">/ {activeCount} active</span>
             )}
@@ -112,15 +123,25 @@ function Group({
 }
 
 export default function Career() {
-  // 正社員と業務委託が時系列で混ざると、どれが本業か読み取れない。
-  // 雇用形態で分けたうえで、それぞれを新しい順に並べる
-  const fulltime = CAREER.filter((e) => !parseCompany(e.company).contract);
-  const contract = CAREER.filter((e) => parseCompany(e.company).contract);
+  const { locale } = useLocale();
+  const t = UI[locale];
 
+  // 雇用形態が時系列で混ざると、どれが本業か読み取れない。
+  // 形態ごとに分けたうえで、それぞれを新しい順に並べる。
+  // 該当が無い形態は Group 側で描画されない
+  const entries = getData(locale).career;
+  const by = (...kinds: Employment[]) =>
+    entries.filter((e) => kinds.includes(e.employment));
+
+  // データは4値で正確に持ちつつ、表示は3グループに束ねる。
+  // アルバイトとインターンは各1件しかなく、独立した見出しにすると
+  // 1件だけのセクションが並んで間延びする。
+  // 職務経歴書の原典も、この2件を「その他の経歴」でまとめている
   return (
     <Section id="career" index="02" label="Career">
-      <Group label="正社員" sub="Full-time" entries={fulltime} />
-      <Group label="業務委託" sub="Contract" entries={contract} />
+      <Group label={t.fulltime.label} sub={t.fulltime.sub} entries={by("fulltime")} />
+      <Group label={t.contract.label} sub={t.contract.sub} entries={by("contract")} />
+      <Group label={t.other.label} sub={t.other.sub} entries={by("parttime", "intern")} />
     </Section>
   );
 }

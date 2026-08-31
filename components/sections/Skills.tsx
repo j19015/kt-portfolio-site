@@ -1,7 +1,8 @@
 "use client";
 
 import Section, { Reveal } from "@/components/ui/Section";
-import { DATA } from "@/lib/career";
+import { useLocale } from "@/components/LocaleProvider";
+import { getData } from "@/lib/career";
 import { TECH_ICONS } from "@/lib/tech-icons";
 
 /**
@@ -36,10 +37,13 @@ function SkillGlyph({ name }: { name: string }) {
 }
 
 export default function Skills() {
+  // 分類名も項目名も英語なので、いまのところ日英で中身は変わらない
+  const { locale } = useLocale();
+
   return (
     <Section id="skills" index="03" label="Skills">
       <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-        {DATA.skills.map((group, i) => (
+        {getData(locale).skills.map((group, i) => (
           <Reveal key={group.category} delay={(i % 3) * 0.06}>
             <div className="group">
               <h3 className="font-mono text-[10px] tracking-[0.28em] text-ember/85 uppercase">

@@ -1,0 +1,32 @@
+{
+  "_comment": "works-config.json の overrides の英語訳。キーはリポジトリ名。日本語版が正で、ここは差分の上書き。label / homepage / thumbnail / stack は訳す必要が無いので持たない。訳が無い作品は日本語のまま出る",
+  "kt-portfolio-site": {
+    "role": "Personal project / design, build, operate",
+    "thumbnailAlt": "Portfolio hero screen showing KOKI TAKAHASHI at the centre of a ring of particles",
+    "description": "A single-page site where scrolling carries you through particle fields rendered with React Three Fiber. There is one ring of particles per career entry, so adding a row to data/career.json adds another ring.",
+    "notes": [
+      "Scroll position never enters React state — a mutable object is read straight from useFrame, so nothing re-renders and the scene holds 60fps.",
+      "Nothing external can break the build: the font is self-hosted, and if the blog RSS or the GitHub API fails to respond, the build carries on with the previously fetched JSON."
+    ]
+  },
+  "kt-tech.blog": {
+    "role": "Personal project / running since 2023",
+    "thumbnailAlt": "Tech blog home page with the headline \"Where technology meets creativity\" above a grid of post cards",
+    "description": "A tech blog that uses Notion as a headless CMS. Posts are written in Notion and everything else runs on its own: rendering through markdown-it, OG image generation, sitemap updates. Markdown, KaTeX and Mermaid are supported.",
+    "notes": [
+      "Every page is served from the CDN through a Cloudflare Cache Rule with a 7-day TTL. On each deploy, GitHub Actions purges the cache and warms it again.",
+      "Post thumbnails are generated with the Gemini API, converted to WebP and stored in R2."
+    ]
+  },
+  "anoni": {
+    "role": "Team project / frontend and backend",
+    "thumbnailAlt": "The anoni home page: two characters alongside the tagline \"a gentle space to share your everyday\"",
+    "description": "An app for sharing everyday life, where conversations with a character build up on their own as diary entries and memories. Built on the idea of \"a gentle space to share your everyday\" — somewhere set apart from other people's judgement and comparison. A live service.",
+    "notes": [
+      "Subscription billing implemented with Stripe, with paying users on it today.",
+      "Next.js running on Cloudflare Workers via OpenNext, with Prisma + PostgreSQL and NextAuth v5 behind the auth and data layer.",
+      "A team of three shipped to production in about two months, and we have kept adding features monthly, working through 500+ issues and PRs together since.",
+      "For the memory feature, conversations are folded into a single diary entry per day before being embedded with pgvector, so past context can be pulled back in through RAG."
+    ]
+  }
+}

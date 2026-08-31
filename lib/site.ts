@@ -14,14 +14,16 @@ export const INDEXABLE = false;
 export const SITE = {
   nameEn: "KOKI TAKAHASHI",
   nameJa: "高橋 幸希",
-  /** 肩書き。Full-stack / Product Engineer に変えるならここ1行 */
-  role: "Full-cycle Engineer",
-  /** 3Dヒーローの下に出る一行 */
-  tagline: "設計から運用まで、ひとつのサイクルで回す。",
+  /** 肩書き。ここ1行で全画面に反映される */
+  role: "Product Engineer",
+  /** 3Dヒーローの下に出る一行。英語版と対にして直すこと */
+  tagline: "設計から運用まで、プロダクトが動き続けることに責任を持つ。",
+  taglineEn:
+    "From design through operations, responsible for keeping the product running.",
   location: "Hamamatsu, Japan",
   url: "https://me.kt-tech.blog",
   description:
-    "フロントエンドからバックエンド、インフラの構築・運用までを一貫して担当するエンジニアのポートフォリオ。",
+    "フロントエンドからバックエンド、インフラの構築・運用までを一貫して担当するプロダクトエンジニアのポートフォリオ。",
   links: {
     github: "https://github.com/j19015",
     blog: "https://kt-tech.blog",

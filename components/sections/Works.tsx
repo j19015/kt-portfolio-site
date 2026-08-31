@@ -3,8 +3,11 @@
 import Image from "next/image";
 
 import Section, { Reveal } from "@/components/ui/Section";
+import { useLocale } from "@/components/LocaleProvider";
 import worksConfig from "@/data/works-config.json";
+import worksEn from "@/data/works-config.en.json";
 import { REPOS } from "@/lib/feeds";
+import type { Locale } from "@/lib/i18n";
 
 /**
  * 作品カードに載せる情報。
@@ -25,22 +28,42 @@ type WorkMeta = {
 
 const OVERRIDES = worksConfig.overrides as Record<string, WorkMeta>;
 
+/** 英語の上書き。訳が無い作品は日本語のまま出る */
+const OVERRIDES_EN = worksEn as Record<string, Partial<WorkMeta>>;
+
 /**
  * 表示順は works-config.json の feature がそのまま決める。
  * GitHubの取得に失敗してもセクションごと消えないよう、
  * カードの本体は設定ファイルだけで組み立てて、更新日だけを任意で足す。
  */
-const WORKS = worksConfig.feature.flatMap((name) => {
-  const meta = OVERRIDES[name];
-  if (!meta) return [];
-  const repo = REPOS.find((r) => r.name === name);
-  return [{ name, ...meta, updatedAt: repo?.updatedAt ?? null }];
-});
+function build(locale: Locale) {
+  return worksConfig.feature.flatMap((name) => {
+    const meta = OVERRIDES[name];
+    if (!meta) return [];
+    const t = locale === "en" ? OVERRIDES_EN[name] : undefined;
+    const repo = REPOS.find((r) => r.name === name);
+    return [{ name, ...meta, ...t, updatedAt: repo?.updatedAt ?? null }];
+  });
+}
+
+const cache = new Map<Locale, ReturnType<typeof build>>();
+
+function works(locale: Locale) {
+  let w = cache.get(locale);
+  if (!w) {
+    w = build(locale);
+    cache.set(locale, w);
+  }
+  return w;
+}
 
 const host = (url: string) =>
   url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
 export default function Works() {
+  const { locale } = useLocale();
+  const WORKS = works(locale);
+
   if (WORKS.length === 0) return null;
 
   return (
@@ -146,6 +169,8 @@ export default function Works() {
                           ↗
                         </span>
                       </span>
+                      {/* 非公開リポジトリのときはリンクを出さない */}
+                      {work.repo && (
                       <a
                         href={work.repo}
                         target="_blank"
@@ -155,6 +180,7 @@ export default function Works() {
                         Repository
                         <span aria-hidden>↗</span>
                       </a>
+                      )}
                       {work.updatedAt && (
                         <span className="ml-auto text-faint">
                           updated {work.updatedAt.replace(/-/g, ".")}

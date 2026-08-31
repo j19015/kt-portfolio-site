@@ -2,9 +2,9 @@
   "profile": {
     "nameJa": "高橋 幸希",
     "nameEn": "Koki Takahashi",
-    "title": "フルサイクルエンジニア",
+    "title": "プロダクトエンジニア",
     "location": "静岡県浜松市（フルリモート）",
-    "summary": "静岡県浜松市からフルリモートで働くフルサイクルエンジニアです。キャリアはバックエンドから始まり、現在は React / TypeScript を中心としたフロントエンドを主戦場にしつつ、時期やプロダクトによっては Node.js / Python(FastAPI) のバックエンドや AWS / Azure のクラウド構築にも軸足を移して開発しています。技術選定から設計・実装・運用まで一貫して担当できることと、CI・コーディング規約・ブランチ戦略といった開発を回す仕組みを整えられることが強みです。最近は AI エージェント（Claude Code）を個人の効率化で終わらせず、チームで同じ品質で使える形に落とし込むことに関心があります。",
+    "summary": "静岡県浜松市からフルリモートで働くプロダクトエンジニアです。キャリアはバックエンドから始まり、現在は React / TypeScript を中心としたフロントエンドを主戦場にしつつ、時期やプロダクトによっては Node.js / Python(FastAPI) のバックエンドや AWS / Azure のクラウド構築にも軸足を移して開発しています。技術選定から設計・実装・運用まで一貫して担当できることと、CI・コーディング規約・ブランチ戦略といった開発を回す仕組みを整えられることが強みです。最近は AI エージェント（Claude Code）を個人の効率化で終わらせず、チームで同じ品質で使える形に落とし込むことに関心があります。",
     "next": "フロントエンドを軸にしつつ、必要な領域は自分で取りに行ける T 字型のエンジニアでありたいと考えています。今後は AI エージェントを前提にした開発フローの設計、DX（Developer Experience）の向上と開発基盤の整備、技術選定・アーキテクチャ設計に取り組み、技術面からチームを支えられる範囲を広げていきたいです。"
   },
   "career": [
@@ -14,16 +14,23 @@
       "role": "メンバー",
       "start": "2026-07",
       "end": null,
-      "description": "スクラムチームの一員として、新規プロダクトの開発を担当。React / TypeScript による SPA 基盤の設計・構築と、Python(FastAPI) / .NET(C#) での API 開発を行っています。あわせて CI・コーディング規約・ブランチ戦略・開発環境の整備といった、開発を回す仕組みづくりにも取り組んでいます。",
+      "description": "スクラムチームの一員として、新規プロダクトの開発を担当。React / TypeScript / Vite の SPA と Python(FastAPI) / MongoDB からなるモノレポをゼロから立ち上げ、依存の向き（app → features → 共有層）を ESLint ルールとして機械的に強制するなど、規約を文章ではなく設定で守れる形にしました。変更のあったコンポーネントだけを検査する CI と、AI エージェント向けの規約を AGENTS.md に単一化してツールが違っても同じ規約で開発できる構成も整備しています。参画から約1.5ヶ月で200件超のコミットを積み、3つのサービスを新規に立ち上げました。",
       "stack": [
         "React",
         "TypeScript",
+        "Vite",
+        "MUI",
+        "TanStack Router / Query",
         "Python",
         "FastAPI",
-        ".NET (C#)",
-        "AWS",
-        "GitHub Actions"
-      ]
+        "MongoDB",
+        "Docker",
+        "AWS (EC2)",
+        "GitHub Actions",
+        "pre-commit",
+        "FFmpeg"
+      ],
+      "employment": "fulltime"
     },
     {
       "company": "株式会社エムニ（業務委託）",
@@ -31,7 +38,7 @@
       "role": "メンバー",
       "start": "2025-12",
       "end": null,
-      "description": "生成AI / LLM を活用したプロダクト開発に、フロントエンド・バックエンド・インフラを横断して参画。RAG による検索基盤とその周辺 UI の設計・実装、検索の後処理やドキュメント同期基盤の構築、Terraform でのインフラ構築までを担当しています。主力リポジトリでは全コミットの約半数を書いています。",
+      "description": "生成AI / LLM を活用したプロダクト開発に、フロントエンド・バックエンド・インフラを横断して参画。RAG による検索基盤とその周辺 UI の設計・実装、検索の後処理やドキュメント同期基盤の構築、Terraform でのインフラ構築までを担当しています。曖昧な質問に対して実際にヒットする資料から選択肢を生成して絞り込む「聞き返し」の設計や、回答と同時に根拠資料の該当ページを提示する UI も実装しました。",
       "stack": [
         "Next.js",
         "React",
@@ -43,7 +50,8 @@
         "MCP",
         "AWS (ECS / Cognito / Lambda)",
         "Terraform"
-      ]
+      ],
+      "employment": "contract"
     },
     {
       "company": "株式会社Hakky（業務委託）",
@@ -51,7 +59,7 @@
       "role": "メンバー",
       "start": "2025-01",
       "end": null,
-      "description": "生成AI を活用したシステム開発に、フロントエンド・バックエンド・インフラを横断して参画。LLM によるドキュメント解析・レビュー支援機能や、マルチエージェント構成の設計・実装、認証基盤の統一、Terraform でのインフラ構築までを担当しています。レビュー工数を約60%削減しました。",
+      "description": "生成AI を活用したシステム開発に、フロントエンド・バックエンド・インフラを横断して参画。LLM によるドキュメント解析・レビュー支援機能や、マルチエージェント構成の設計・実装、認証基盤の統一、Terraform でのインフラ構築までを担当しています。レビュー支援システムではリポジトリ全体の約68%を自身のコミットが占め、人手によるレビュー工数を約60%削減しました。精度差の小さい軽量モデルを検証のうえ選定し、AI 利用コストも1/10以下に抑えています。",
       "stack": [
         "Next.js",
         "React",
@@ -64,7 +72,8 @@
         "Azure Document Intelligence",
         "AutoGen",
         "Terraform"
-      ]
+      ],
+      "employment": "contract"
     },
     {
       "company": "株式会社ブイキューブ",
@@ -79,7 +88,8 @@
         "Vite",
         "Nx",
         "Agora SDK"
-      ]
+      ],
+      "employment": "fulltime"
     },
     {
       "company": "株式会社ブイキューブ",
@@ -94,7 +104,8 @@
         "Agora SDK",
         "Firebase (Firestore / Cloud Functions / Pub/Sub)",
         "Storybook"
-      ]
+      ],
+      "employment": "fulltime"
     },
     {
       "company": "株式会社ブイキューブ",
@@ -112,7 +123,8 @@
         "CloudWatch",
         "CircleCI",
         "Autify"
-      ]
+      ],
+      "employment": "fulltime"
     },
     {
       "company": "株式会社Diafa（業務委託）",
@@ -120,7 +132,7 @@
       "role": "メンバー",
       "start": "2024-04",
       "end": "2025-11",
-      "description": "全国のコンセプトカフェ情報サービスの開発を担当。技術選定・アーキテクチャ設計からインフラ構築まで一貫して担当し、App Runner / Amplify の比較検討を含む AWS 構成の設計を行いました。",
+      "description": "全国のコンセプトカフェ情報サービスの開発を担当。個人開発として始めたものを業務委託案件へと発展させ、技術選定・アーキテクチャ設計からインフラ構築まで一貫して担当しました。App Runner / Amplify の比較検討を含む AWS 構成の設計に加え、パフォーマンス改善と SEO 最適化、CI/CD パイプラインの構築・運用まで行っています。",
       "stack": [
         "Next.js",
         "React",
@@ -130,7 +142,8 @@
         "Prisma",
         "PostgreSQL",
         "AWS (App Runner / Amplify / Lambda)"
-      ]
+      ],
+      "employment": "contract"
     },
     {
       "company": "株式会社toraco（業務委託）",
@@ -144,7 +157,8 @@
         "React",
         "TypeScript",
         "Node.js"
-      ]
+      ],
+      "employment": "contract"
     },
     {
       "company": "株式会社インフラトップ（DMM WEBCAMP / 業務委託）",
@@ -160,7 +174,8 @@
         "JavaScript",
         "Git",
         "AWS (EC2 / RDS)"
-      ]
+      ],
+      "employment": "contract"
     },
     {
       "company": "エデュケーショナル・デザイン株式会社（業務委託）",
@@ -172,6 +187,35 @@
       "stack": [
         "Minecraft",
         "Scratch"
+      ],
+      "employment": "parttime"
+    },
+    {
+      "company": "個人事業主（受託開発）",
+      "product": "業務管理Webアプリケーション",
+      "role": "エンジニア",
+      "employment": "contract",
+      "start": "2024-01",
+      "end": "2024-09",
+      "description": "業務管理Webアプリケーションの受託開発。クライアントへのヒアリングと要件定義から、技術選定・設計・実装・運用まで全工程を単独で担当しました。業務フローに合わせたタスク管理・スケジュール管理機能の設計と、マルチデバイス対応を行っています。",
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Node.js"
+      ]
+    },
+    {
+      "company": "株式会社ブイキューブ（インターン）",
+      "product": null,
+      "role": "QAエンジニア",
+      "employment": "intern",
+      "start": "2022-08",
+      "end": "2022-08",
+      "description": "サマーインターンとして QA を担当。Autify を用いた E2E テストのシナリオ作成と、JavaScript でのテストコード実装を行いました。翌年4月に正社員として入社しています。",
+      "stack": [
+        "Autify",
+        "JavaScript"
       ]
     }
   ],
@@ -215,16 +259,19 @@
       "category": "Backend",
       "items": [
         "Node.js",
+        "Bun",
         "Express",
         "FastAPI",
         "Ruby on Rails",
-        "Prisma"
+        "Prisma",
+        "SQLAlchemy"
       ]
     },
     {
       "category": "Database",
       "items": [
         "PostgreSQL",
+        "pgvector",
         "MySQL",
         "MongoDB",
         "SQLite"
@@ -236,7 +283,16 @@
         "Vitest",
         "Jest",
         "Testing Library",
-        "Playwright"
+        "Playwright",
+        "Autify"
+      ]
+    },
+    {
+      "category": "Media / Vision",
+      "items": [
+        "Agora SDK",
+        "OpenCV",
+        "FFmpeg"
       ]
     },
     {
@@ -278,12 +334,15 @@
         "Amazon Bedrock Knowledge Bases",
         "Azure AI Search",
         "AutoGen",
-        "MCP"
+        "LangChain / LangGraph",
+        "MCP",
+        "Pinecone"
       ]
     },
     {
-      "category": "Auth / CMS",
+      "category": "Auth / Payments / CMS",
       "items": [
+        "Stripe",
         "Auth.js",
         "Microsoft Entra ID",
         "microCMS",
@@ -296,7 +355,9 @@
         "GitHub Actions",
         "CircleCI",
         "Docker",
+        "Colima",
         "Terraform",
+        "ecspresso",
         "pre-commit",
         "Cloudflare",
         "Jira",
@@ -319,7 +380,7 @@
       "date": "2017-05"
     },
     {
-      "name": "C言語検定2級",
+      "name": "C言語プログラミング能力認定試験 2級",
       "date": null
     }
   ],
@@ -363,14 +424,20 @@
       "date": "2021-10"
     },
     {
-      "name": "サンギハックチャレンジ2021",
+      "name": "SANGI ハッカソン 4位入賞（約120名中）",
       "date": "2021-10"
     }
   ],
   "education": [
     {
-      "school": "理工学部 情報科学科",
-      "note": "専門学校と併修",
+      "school": "帝京大学 理工学部 情報科学科",
+      "note": "通信教育課程 / 静岡産業技術専門学校と併修",
+      "start": "2019-04",
+      "end": "2023-03"
+    },
+    {
+      "school": "静岡産業技術専門学校 みらい情報科",
+      "note": "卒業研究: VR × メタバースの授業プラットフォームの作成",
       "start": "2019-04",
       "end": "2023-03"
     }

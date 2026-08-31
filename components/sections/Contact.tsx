@@ -1,20 +1,25 @@
 "use client";
 
 import Section, { Reveal } from "@/components/ui/Section";
-import { DATA } from "@/lib/career";
+import { useLocale } from "@/components/LocaleProvider";
+import { getData } from "@/lib/career";
+import { UI } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 
 export default function Contact() {
+  const { locale } = useLocale();
+  const data = getData(locale);
+
   return (
     <Section id="contact" index="07" label="Contact">
       <Reveal>
         <p className="mb-12 max-w-lg text-[14px] leading-loose text-ink/70">
-          各プラットフォームで発信・活動しています。お気軽にどうぞ。
+          {UI[locale].contactLead}
         </p>
       </Reveal>
 
       <ul className="border-t border-line">
-        {DATA.links.map((link, i) => (
+        {data.links.map((link, i) => (
           <li key={link.label}>
             <Reveal delay={Math.min(i, 5) * 0.04}>
               <a

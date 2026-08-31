@@ -2,9 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { useLocale } from "@/components/LocaleProvider";
+import { UI } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 
 export default function Hero() {
+  const { locale } = useLocale();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -71,7 +74,7 @@ export default function Hero() {
           {/* 琥珀の細い線。肩書きとキャッチの間を締める */}
           <span className="mx-auto mt-6 block h-px w-16 bg-ember/50" />
           <p className="mx-auto mt-6 max-w-md text-[13px] leading-loose text-balance text-ink/70">
-            {SITE.tagline}
+            {UI[locale].tagline}
           </p>
         </motion.div>
       </motion.div>

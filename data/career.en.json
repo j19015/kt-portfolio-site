@@ -1,0 +1,112 @@
+{
+  "_comment": "career.json の英語訳。日本語版が正で、ここは差分の上書き。career のキーは career.json の \"company|start\"、certifications / awards / education は日本語の名称、nextItems は no。訳が無い項目は日本語のまま出るので、増やすときは足したいものだけ書けばよい。skills は分類名も項目名も英語なので訳を持たない",
+  "profile": {
+    "title": "Product Engineer",
+    "location": "Hamamatsu, Shizuoka, Japan (fully remote)",
+    "summary": "A product engineer working fully remotely from Hamamatsu, Shizuoka. I started out in backend development and now spend most of my time on the frontend with React and TypeScript, though depending on the period and the product I shift back into Node.js / Python (FastAPI) services or cloud infrastructure on AWS and Azure. My strengths are owning the work end to end — from choosing the technology through design, implementation and operations — and putting in place the machinery a team develops with: CI, coding standards, branching strategy. Lately I've been interested in taking AI agents (Claude Code) beyond personal productivity and shaping them into something a whole team can use with consistent results.",
+    "next": "I want to stay a T-shaped engineer: frontend as the deep stem, but able to go and pick up whatever else a product needs. Going forward I want to work on development workflows designed around AI agents, on developer experience and the platforms that support it, and on technology selection and architecture — widening the range where I can support a team from the technical side."
+  },
+  "career": {
+    "KDDIアジャイル開発センター株式会社|2026-07": {
+      "company": "KDDI Agile Development Center",
+      "role": "Member",
+      "description": "Building a new product as part of a scrum team. I set up a monorepo from scratch — a React / TypeScript / Vite SPA with a Python (FastAPI) and MongoDB backend — and made the conventions enforceable by configuration rather than prose, for example encoding the direction of dependencies (app → features → shared) as ESLint rules. I also built CI that only inspects the components that actually changed, and consolidated the guidelines for AI agents into a single AGENTS.md so the same rules apply whichever tool is used. In roughly the first month and a half I landed over 200 commits and launched three new services."
+    },
+    "株式会社エムニ（業務委託）|2025-12": {
+      "company": "Emni",
+      "product": "Generative AI product development (AWS)",
+      "role": "Member",
+      "description": "Working across frontend, backend and infrastructure on a generative-AI product. I design and build the RAG-based search layer and the UI around it, the post-processing of search results, the document sync pipeline, and the infrastructure in Terraform. I also built the clarification flow — when a question is vague, the system generates choices from documents that actually match and narrows things down — and the UI that shows the exact source page alongside each answer."
+    },
+    "株式会社Hakky（業務委託）|2025-01": {
+      "company": "Hakky",
+      "product": "Generative AI product development (Azure)",
+      "role": "Member",
+      "description": "Working across frontend, backend and infrastructure on generative-AI systems. I design and build document analysis and review-support features driven by LLMs, multi-agent setups, a unified authentication layer, and the infrastructure in Terraform. On the review-support system roughly 68% of the repository's commits are mine, and it cut manual review effort by about 60%. I also evaluated and picked a lighter model with little accuracy loss, bringing AI running costs down to under a tenth."
+    },
+    "株式会社ブイキューブ|2025-01": {
+      "company": "V-CUBE",
+      "product": "EventDX platform",
+      "role": "Member",
+      "description": "Frontend development for a BtoBtoC event-DX platform. In an Nx monorepo built on React, TypeScript and Vite, I handled the viewer screens from component design through implementation, and implemented real-time audio and video delivery with the Agora SDK."
+    },
+    "株式会社ブイキューブ|2024-04": {
+      "company": "V-CUBE",
+      "product": "VCP (new webinar streaming product)",
+      "role": "Member",
+      "description": "Backend and frontend development for a new webinar streaming product. Alongside the React viewer screens and audio/video delivery via the Agora SDK, I built the real-time synchronisation and event-driven architecture on Firebase (Firestore / Cloud Functions / Pub/Sub)."
+    },
+    "株式会社ブイキューブ|2023-04": {
+      "company": "V-CUBE",
+      "product": "V-CUBE Seminar",
+      "role": "Member",
+      "description": "Spent my first month or two in QA, writing E2E tests with Autify, then moved to the backend: infrastructure as code with AWS CDK, a serverless streaming pipeline on Lambda and MediaLive, production monitoring with CloudWatch, and CI/CD on CircleCI."
+    },
+    "株式会社Diafa（業務委託）|2024-04": {
+      "company": "Diafa",
+      "product": "con-cafe.jp",
+      "role": "Member",
+      "description": "Built an information service covering concept cafés across Japan. It started as a personal project and grew into a contract engagement, where I owned everything from technology choices and architecture through to infrastructure. Alongside designing the AWS setup — including weighing App Runner against Amplify — I worked on performance, SEO, and building and running the CI/CD pipeline."
+    },
+    "株式会社toraco（業務委託）|2024-12": {
+      "company": "toraco",
+      "role": "Member",
+      "description": "Site development for a Wi-Fi rental business. I implemented the cart and checkout flow and maintained the existing system."
+    },
+    "株式会社インフラトップ（DMM WEBCAMP / 業務委託）|2021-11": {
+      "company": "Infratop (DMM WEBCAMP)",
+      "role": "Tech Mentor",
+      "description": "Tech mentor at a programming school: answering students' technical questions, reviewing code and helping them debug, supporting Rails and AWS (EC2, RDS) environment setup, and following their progress through the course."
+    },
+    "エデュケーショナル・デザイン株式会社（業務委託）|2022-05": {
+      "company": "Educational Design",
+      "role": "Classroom Mentor",
+      "description": "Mentor at an in-person programming school for students from elementary through high school. I taught programming using Minecraft and Scratch, and followed up on each student's progress at their own level."
+    },
+    "個人事業主（受託開発）|2024-01": {
+      "company": "Independent contractor",
+      "product": "Business management web application",
+      "role": "Engineer",
+      "description": "Contract development of a business management web application. I handled the entire process alone — client interviews and requirements, technology choices, design, implementation and operation — including task and schedule management features shaped around the client's workflow, and multi-device support."
+    },
+    "株式会社ブイキューブ（インターン）|2022-08": {
+      "company": "V-CUBE",
+      "role": "QA Engineer",
+      "description": "Summer internship on the QA side. I wrote E2E test scenarios with Autify and implemented test code in JavaScript. I joined the company as a full-time employee the following April."
+    }
+  },
+  "certifications": {
+    "応用情報技術者試験": "Applied Information Technology Engineer Examination (IPA)",
+    "国家技能検定 電子機器組み立て3級": "National Trade Skill Test — Electronic Equipment Assembly, Grade 3",
+    "基本情報技術者試験": "Fundamental Information Technology Engineer Examination (IPA)",
+    "C言語プログラミング能力認定試験 2級": "C Programming Proficiency Test, Grade 2"
+  },
+  "awards": {
+    "三井不動産ハッカソン メンター賞": "Mitsui Fudosan Hackathon — Mentor Award",
+    "SANGI ハッカソン 4位入賞（約120名中）": "SANGI Hackathon — 4th place out of ~120 participants"
+  },
+  "education": {
+    "帝京大学 理工学部 情報科学科": {
+      "school": "Faculty of Science and Engineering, Department of Information Science, Teikyo University",
+      "note": "Correspondence course, taken concurrently with a vocational college program"
+    },
+    "静岡産業技術専門学校 みらい情報科": {
+      "school": "Shizuoka Sangyo Technical College, Department of Future Information",
+      "note": "Graduation project: a VR/metaverse platform for classroom lessons"
+    }
+  },
+  "nextItems": {
+    "01": {
+      "title": "Development workflows built around AI agents",
+      "body": "I want agents like Claude Code to become a team standard rather than a personal productivity trick — a setup where anyone gets the same quality of result. Not by sharing prompts, but by building it into how the team works."
+    },
+    "02": {
+      "title": "Practising agile, and building what it stands on",
+      "body": "Working as part of a scrum team, I've put in place the machinery a team develops with: CI, coding standards, branching strategy. Next I want to help shape the process itself, so a team can keep shipping quickly and safely."
+    },
+    "03": {
+      "title": "Technology selection and architecture",
+      "body": "Frontend is my base, but I go and pick up whatever else a product needs, from backend through infrastructure. I want to grow that cross-domain judgement into something I can take on as design responsibility."
+    }
+  }
+}

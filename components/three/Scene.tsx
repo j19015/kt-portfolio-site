@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import RingField, { START_Z, travelFor } from "./RingField";
-import { CAREER } from "@/lib/career";
+import { CAREER_COUNT } from "@/lib/career";
 import { scrollState } from "@/lib/scroll";
 import { markReady } from "@/lib/boot";
 
@@ -49,7 +49,7 @@ export default function Scene() {
   const [quality, setQuality] = useState<"low" | "high" | null>(null);
 
   // 経歴1件 = 環1つ。スクロールしきると全部くぐり抜ける長さになる
-  const ringCount = CAREER.length;
+  const ringCount = CAREER_COUNT;
   const travel = travelFor(ringCount);
 
   useEffect(() => {

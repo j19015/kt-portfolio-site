@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#08080c"/>
-  <circle cx="16" cy="16" r="9.5" fill="none" stroke="#ff9d4d" stroke-width="2.4"/>
-  <circle cx="16" cy="6.5" r="2.6" fill="#6ee7f0"/>
+  <!-- 左上から光が当たる球のような塗り。16pxでも塊として認識でき、
+       大きいサイズでは立体感が出る -->
+  <radialGradient id="k" cx="0.35" cy="0.25" r="0.9">
+    <stop offset="0" stop-color="#ffbe80"/>
+    <stop offset="1" stop-color="#e0761f"/>
+  </radialGradient>
+  <rect width="32" height="32" rx="7" fill="url(#k)"/>
+  <path d="M11 8v16M11 16l8-8M13.5 15.5L20 24" stroke="#08080c" stroke-width="3.2" stroke-linecap="round" fill="none"/>
 </svg>
