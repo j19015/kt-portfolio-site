@@ -182,7 +182,9 @@ export default function NightField({
         uRadius: { value: CAT_SIZE * 0.17 },
         uSpin: { value: 0 },
         uPixelRatio: { value: 1 },
-        uColor: { value: new THREE.Color("#e2a765") },
+        // 猫（琥珀 #e79a58）と同系色だと、転がっているものが体の一部に見える。
+        // 暖色の猫に対して毛糸玉は寒色にして、追う側と追われる側を分ける
+        uColor: { value: new THREE.Color("#79cfd8") },
         uOpacity: { value: 0 },
       },
     });
