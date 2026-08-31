@@ -5,6 +5,8 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { CatRig, CAT_SIZE, STRIDE } from "./catRig";
 import { emitPaw } from "./pawTrail";
+import { buildTailGeometry, tailVertex, tailFragment } from "./tailSweep";
+import { buildYarnGeometry, yarnVertex, yarnFragment } from "./yarnBall";
 import { buildCatGeometry } from "./catGeometry";
 import { catVertex, catFragment } from "./catShader";
 import {
@@ -16,7 +18,7 @@ import {
   poolFragment,
 } from "./nightShaders";
 import { pawTrail, resetPawTrail, PAW_CAPACITY } from "./pawTrail";
-import { scrollState } from "@/lib/scroll";
+import { scrollState, sectionProgress } from "@/lib/scroll";
 
 /** 窓明かりの間隔。旧実装の環の間隔をそのまま引き継いでいる */
 export const POOL_GAP = 26;
@@ -24,6 +26,9 @@ export const POOL_GAP = 26;
 export const START_Z = 20;
 /** カメラの高さ。猫の肩より少し上から見下ろす */
 export const CAMERA_Y = CAT_SIZE * 1.28;
+
+/** 猫が振り返る節目。ヒーローとフッターは除く */
+const WATCH_SECTIONS = ["about", "career", "skills", "next", "works", "blog"];
 /** 明かりの数からカメラの総移動距離を出す。末尾に余白を足して最後の1枚も通り抜ける */
 export const travelFor = (poolCount: number) => (poolCount - 1) * POOL_GAP + 12;
 
@@ -162,6 +167,55 @@ export default function NightField({
   const dust = useMemo(() => buildDust(quality), [quality]);
   // 1匹目は折れ耳（スコティッシュフォールド）なので、耳の形が違う。
   // ジオメトリを2種類作って猫ごとに使い分ける
+  // 先頭の猫が追いかける毛糸玉
+  const yarn = useMemo(() => {
+    const geometry = buildYarnGeometry();
+    const material = new THREE.ShaderMaterial({
+      vertexShader: yarnVertex,
+      fragmentShader: yarnFragment,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: {
+        uTime: { value: 0 },
+        uCenter: { value: new THREE.Vector3(0, 0, 0) },
+        uRadius: { value: CAT_SIZE * 0.17 },
+        uSpin: { value: 0 },
+        uPixelRatio: { value: 1 },
+        uColor: { value: new THREE.Color("#e2a765") },
+        uOpacity: { value: 0 },
+      },
+    });
+    return { geometry, material };
+  }, []);
+  /** 毛糸玉の状態。猫との距離で弾んで逃げる */
+  const yarnState = useRef({ z: 0, x: 0, spin: 0, hop: 0, ready: false });
+
+  // 画面端をよぎる尻尾。姿は見せず、気配だけ
+  const tail = useMemo(() => {
+    const geometry = buildTailGeometry();
+    const material = new THREE.ShaderMaterial({
+      vertexShader: tailVertex,
+      fragmentShader: tailFragment,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: {
+        uTime: { value: 0 },
+        uProgress: { value: 2 }, // 1 を超えていれば出ていない
+        uSide: { value: 1 },
+        uCameraZ: { value: 0 },
+        uPixelRatio: { value: 1 },
+        uLaneScale: { value: 1 },
+        uColor: { value: new THREE.Color("#f2d6b4") },
+        uOpacity: { value: 0 },
+      },
+    });
+    return { geometry, material };
+  }, []);
+  /** 次に尻尾をよぎらせる時刻。ごく稀にしか出さない */
+  const nextTailAt = useRef(0);
+
   const catGeos = useMemo(
     () => [buildCatGeometry(quality, true), buildCatGeometry(quality, false)],
     [quality],
@@ -279,6 +333,10 @@ export default function NightField({
   const seeded = useRef(false);
   /** 次に余白へ足跡を撒くカメラZ。進んだ距離で間隔を測る */
   const nextGhostZ = useRef<number | null>(null);
+  /** セクション進捗の前回値。境目を跨いだ瞬間だけ拾うために持つ */
+  const lastProg = useRef<Record<string, number>>({});
+  /** 毛糸玉の前フレームZ。転がりの回転量を出すのに使う */
+  const prevYarnZ = useRef(0);
   const prevCamZ = useRef(START_Z);
   const camSpeed = useRef(0);
 
@@ -288,6 +346,10 @@ export default function NightField({
     return () => {
       dust.dispose();
       for (const g of catGeos) g.dispose();
+      tail.geometry.dispose();
+      tail.material.dispose();
+      yarn.geometry.dispose();
+      yarn.material.dispose();
       dustMat.dispose();
       pools.geometry.dispose();
       pools.material.dispose();
@@ -295,7 +357,7 @@ export default function NightField({
       paws.material.dispose();
       for (const c of cats) c.material.dispose();
     };
-  }, [dust, catGeos, dustMat, pools, paws, cats]);
+  }, [dust, catGeos, dustMat, pools, paws, cats, tail, yarn]);
 
   useFrame((state, delta) => {
     const d = Math.min(delta, 0.05); // タブ復帰時の巨大なdeltaを吸収
@@ -340,6 +402,12 @@ export default function NightField({
         lit = Math.max(lit, Math.exp(-(dx * dx + dz * dz) / 700));
       }
 
+      // 窓明かりの中にいるとき、たまに座って毛づくろいを始める。
+      // 明かりの中は絵として見せ場なので、そこで足を止めると視線が留まる
+      if (lit > 0.62 && rig.canPose() && Math.random() < d * 0.5) {
+        rig.startPose("groom", 3.4 + Math.random() * 2.2);
+      }
+
       const u = material.uniforms;
       u.uTime.value = t;
       u.uPixelRatio.value = pr;
@@ -357,6 +425,18 @@ export default function NightField({
       nextGhostZ.current = camZ - 260;
     }
 
+    // セクションの見出しに差しかかったら、先頭の猫が一度振り返る。
+    // 読み手が新しい節に入る瞬間に視線を上げさせる合図になる
+    for (const id of WATCH_SECTIONS) {
+      const prog = sectionProgress[id] ?? 0;
+      const prev = lastProg.current[id] ?? 0;
+      // 見出しが画面に入る瞬間（進捗が 0.28 を跨いだところ）だけ拾う
+      if (prev < 0.28 && prog >= 0.28) {
+        cats[0]?.rig.startPose("lookBack", 2.1 + Math.random() * 0.8);
+      }
+      lastProg.current[id] = prog;
+    }
+
     // 進んだ距離で「たまに」を測る。時間で測るとスクロールを止めている間も
     // 湧いてしまい、止まっているのに足跡が増える不自然さが出る。
     // 前進しているときだけ、一定距離ごとに1列置く
@@ -364,6 +444,62 @@ export default function NightField({
       strewGhostTrail(camZ, laneScale, t, Math.random);
       // 次までの間隔は毎回ばらつかせる。等間隔だと規則性が見えてしまう
       nextGhostZ.current = camZ - (240 + Math.random() * 320);
+    }
+
+    // ---- 毛糸玉 ----
+    // 先頭の猫の少し前を転がる。追いつかれると弾んで先へ逃げる
+    {
+      const lead = cats[0]?.rig;
+      const y = yarnState.current;
+      const yu = yarn.material.uniforms;
+      if (lead) {
+        const targetZ = lead.bodyPos.z - CAT_SIZE * 3.4;
+        if (!y.ready) {
+          y.z = targetZ;
+          y.x = lead.bodyPos.x;
+          y.ready = true;
+        }
+        // 猫が近づくほど強く逃げる。距離が詰まると弾む
+        const gap = y.z - lead.bodyPos.z; // 負なら猫より前
+        const chased = Math.max(0, 1 - Math.abs(gap) / (CAT_SIZE * 3.8));
+        if (chased > 0.72 && y.hop <= 0) y.hop = 1;
+        if (y.hop > 0) y.hop = Math.max(0, y.hop - d * 1.7);
+
+        // 追従。逃げるぶんだけ余分に前へ出る
+        const want = targetZ - chased * CAT_SIZE * 1.4;
+        y.z += (want - y.z) * Math.min(1, d * 3.4);
+        y.x += (lead.bodyPos.x + Math.sin(t * 0.7) * CAT_SIZE * 0.5 - y.x) * Math.min(1, d * 2.2);
+        // 転がりは進んだ距離から。空回りしないよう半径で割る
+        y.spin += (prevYarnZ.current - y.z) / (CAT_SIZE * 0.17);
+        prevYarnZ.current = y.z;
+
+        // 弾みは山型で戻る
+        const bounce = Math.sin(y.hop * Math.PI) * CAT_SIZE * 0.34;
+        (yu.uCenter.value as THREE.Vector3).set(y.x, CAT_SIZE * 0.17 + bounce, y.z);
+        yu.uSpin.value = y.spin;
+      }
+      yu.uTime.value = t;
+      yu.uPixelRatio.value = pr;
+      yu.uOpacity.value = op * 0.85;
+    }
+
+    // ---- 画面端をよぎる尻尾 ----
+    const tu = tail.material.uniforms;
+    tu.uTime.value = t;
+    tu.uCameraZ.value = camZ;
+    tu.uPixelRatio.value = pr;
+    tu.uLaneScale.value = laneScale;
+    tu.uOpacity.value = op;
+    if (nextTailAt.current === 0) {
+      // 開いた直後に出ると仕掛けが読まれる。最初は間を置く
+      nextTailAt.current = t + 26 + Math.random() * 30;
+    } else if (tu.uProgress.value <= 1) {
+      // 横切っている最中。5.5秒かけてゆっくり通る
+      tu.uProgress.value += d / 5.5;
+      if (tu.uProgress.value > 1) nextTailAt.current = t + 48 + Math.random() * 70;
+    } else if (t >= nextTailAt.current) {
+      tu.uProgress.value = 0;
+      tu.uSide.value = Math.random() < 0.5 ? -1 : 1;
     }
 
     paws.material.uniforms.uTime.value = t;
@@ -380,6 +516,8 @@ export default function NightField({
       <points geometry={dust} material={dustMat} frustumCulled={false} />
       <mesh geometry={pools.geometry} material={pools.material} frustumCulled={false} />
       <mesh geometry={paws.geometry} material={paws.material} frustumCulled={false} />
+      <points geometry={tail.geometry} material={tail.material} frustumCulled={false} />
+      <points geometry={yarn.geometry} material={yarn.material} frustumCulled={false} />
       {cats.map((c, i) => (
         <points key={i} geometry={catGeos[i]} material={c.material} frustumCulled={false} />
       ))}

@@ -106,6 +106,15 @@ function laneSlope(z: number, cfg: CatConfig): number {
   );
 }
 
+/**
+ * 立ち止まってする仕草。
+ *
+ * 歩き続けるだけだと単調なので、ときどき足を止めて何かをする。
+ * 猫らしさは「じっとしている → ふいに動く」の落差から出るので、
+ * 止まっている時間そのものが演出になる。
+ */
+export type Pose = "walk" | "lookBack" | "groom";
+
 export class CatRig {
   readonly bones: THREE.Matrix4[] = Array.from(
     { length: BONE_COUNT },
@@ -132,6 +141,17 @@ export class CatRig {
   private readonly legs: LegState[];
   private headBob = 0;
   private ready = false;
+
+  /** いまの仕草 */
+  private pose: Pose = "walk";
+  /** 仕草の経過秒 */
+  private poseT = 0;
+  /** 仕草の長さ（秒） */
+  private poseDur = 0;
+  /** 0..1。1 のとき完全に停止している。急に止まらないよう補間する */
+  private halt = 0;
+  /** 次に仕草を試すまでのクールダウン。連続で止まらないようにする */
+  private cooldown = 4;
 
   // 毎フレーム new しないための作業用
   private readonly q = new THREE.Quaternion();
@@ -163,6 +183,26 @@ export class CatRig {
   }
 
   /**
+   * 仕草を始められるか。歩いていて、直前に何もしていないときだけ受け付ける
+   */
+  canPose(): boolean {
+    return this.pose === "walk" && this.cooldown <= 0;
+  }
+
+  /** 仕草を始める。すでに何かしていれば無視される */
+  startPose(pose: Pose, duration: number) {
+    if (!this.canPose()) return;
+    this.pose = pose;
+    this.poseT = 0;
+    this.poseDur = duration;
+  }
+
+  /** いま止まって何かしているか。外から見た目を変えたいとき用 */
+  get posing(): boolean {
+    return this.pose !== "walk";
+  }
+
+  /**
    * @param cameraSpeed カメラの前進速度。**猫自身の速度を使ってはいけない**。
    *   先行距離を自分の速度から決めると「速い→前へ出る→速度が変わる」の
    *   自己フィードバックで位置が発振し、猫が滲んで見える
@@ -170,9 +210,25 @@ export class CatRig {
   update(dt: number, cameraZ: number, cameraSpeed: number, time: number) {
     const cfg = this.cfg;
 
+    // ---- 仕草の進行 ----
+    if (this.cooldown > 0) this.cooldown -= dt;
+    if (this.pose !== "walk") {
+      this.poseT += dt;
+      if (this.poseT >= this.poseDur) {
+        this.pose = "walk";
+        // しばらくは次の仕草を始めない。立ち止まってばかりだと歩いて見えない
+        this.cooldown = 7 + Math.random() * 9;
+      }
+    }
+    // 止まる/歩き出すを滑らかに。急停止すると足が地面を滑る
+    const wantHalt = this.pose === "walk" ? 0 : 1;
+    this.halt += (wantHalt - this.halt) * Math.min(1, dt * 3.2);
+
     // 先行距離はスクロールが速いほど伸びる。勢いよく送ると猫が先へ駆けていく
     const lead = cfg.lead + Math.min(16, Math.max(0, cameraSpeed * 0.35));
-    const nextZ = cameraZ - lead;
+    // 立ち止まっている間はカメラに近づかせる。
+    // 先行距離を保ったままだと「止まっているのに前へ進む」ことになる
+    const nextZ = cameraZ - lead * (1 - this.halt * 0.55);
 
     if (!this.ready) {
       this.z = nextZ;
@@ -190,8 +246,9 @@ export class CatRig {
     const rawSpeed = dt > 1e-4 ? moved / dt : 0;
     this.speed += (rawSpeed - this.speed) * Math.min(1, dt * 12);
 
-    // 歩容は「進んだ距離」で回す。時間で回すと速度が変わったとき足が滑る
-    this.phase += moved / this.stride;
+    // 歩容は「進んだ距離」で回す。時間で回すと速度が変わったとき足が滑る。
+    // 立ち止まっている間は歩容も止める
+    this.phase += (moved / this.stride) * (1 - this.halt);
 
     // ほぼ止まっているときは、踏み出し中の脚だけ着地させてから凍らせる。
     // 途中で固まると片脚を上げたまま静止してしまう
@@ -252,14 +309,40 @@ export class CatRig {
     }
 
     // ---- 頭 ----
+    // 仕草に応じて頭の向きと高さを変える。
+    // どちらも 0→1→0 の山型で入って戻るので、動きが途切れない
+    let lookYaw = 0;
+    let lookPitch = 0;
+    let headDrop = 0;
+    if (this.pose !== "walk") {
+      const u = Math.min(1, this.poseT / Math.max(this.poseDur, 1e-3));
+      // 立ち上がり0.18、戻り0.22。振り向いた先で少し留まる
+      const ease =
+        u < 0.18
+          ? smooth(u / 0.18)
+          : u > 0.78
+            ? smooth((1 - u) / 0.22)
+            : 1;
+      if (this.pose === "lookBack") {
+        // 後ろを振り返る。真後ろまで回すと首が折れて見えるので 130度ほど
+        lookYaw = 2.27 * ease * (cfg.tailUp ? 1 : -1);
+        lookPitch = -0.12 * ease;
+      } else {
+        // 毛づくろい。頭を下げて脇腹へ寄せ、小刻みに動かす
+        headDrop = 0.34 * ease;
+        lookYaw = (0.75 + Math.sin(time * 9.2) * 0.12) * ease;
+        lookPitch = (0.62 + Math.sin(time * 7.4) * 0.09) * ease;
+      }
+    }
+
     this.head
-      .set(0, 0.28 + this.headBob, -0.88)
+      .set(0, 0.28 + this.headBob - headDrop, -0.88 + headDrop * 0.42)
       .multiplyScalar(this.size)
       .applyQuaternion(this.q)
       .add(this.bodyPos);
     // ゆっくり左右を見る。周期の違う2つの sin を足して規則性を消す
     const look = Math.sin(time * 0.23 + cfg.weave) * 0.16 + Math.sin(time * 0.41 + 2.1) * 0.07;
-    this.euler.set(Math.sin(time * 0.31) * 0.05, yaw + look, 0);
+    this.euler.set(Math.sin(time * 0.31) * 0.05 + lookPitch, yaw + look + lookYaw, 0);
     this.headQ.setFromEuler(this.euler);
     this.bones[BONE.HEAD].compose(this.head, this.headQ, this.scaleV.setScalar(this.size));
 
