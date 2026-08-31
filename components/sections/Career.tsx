@@ -6,12 +6,12 @@ import { CAREER, fmt, parseCompany, type CareerEntry } from "@/lib/career";
 /** 進行中を示すバッジ。琥珀のドットが静かに脈打つ */
 function ActiveBadge() {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-ember/35 bg-ember/10 px-2.5 py-0.5">
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-active/35 bg-active/10 px-2.5 py-0.5">
       <span className="relative flex h-1.5 w-1.5">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ember opacity-70" />
-        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ember" />
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-active opacity-70" />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-active" />
       </span>
-      <span className="font-mono text-[9px] tracking-[0.18em] text-ember uppercase">
+      <span className="font-mono text-[9px] tracking-[0.18em] text-active uppercase">
         Active
       </span>
     </span>
@@ -95,7 +95,7 @@ function Group({
           <span className="ml-auto font-mono text-[10px] text-faint">
             {entries.length} 件
             {activeCount > 0 && (
-              <span className="ml-2 text-ember/80">/ {activeCount} active</span>
+              <span className="ml-2 text-active/85">/ {activeCount} active</span>
             )}
           </span>
         </div>

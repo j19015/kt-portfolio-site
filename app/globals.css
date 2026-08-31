@@ -16,6 +16,9 @@
   --color-ember: #ff9d4d;
   --color-ember-dim: #c26a24;
   --color-cyan: #6ee7f0;
+  /* 稼働中を示す緑。琥珀は警告色に読めるので状態表示には使わない。
+     鮮やかすぎる緑は暗い背景から浮くため彩度を落としている */
+  --color-active: #3fcf6e;
 
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
