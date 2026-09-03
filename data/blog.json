@@ -1,5 +1,11 @@
 [
   {
+    "title": "【実装】エージェントに GitHub のスクショを貼らせる — 回り道と、9/1 に来た gh --attach",
+    "url": "https://kt-tech.blog/blogs/gh-attach-agent-screenshot-upload",
+    "date": "2026-09-03",
+    "description": "【実装】エージェントに GitHub のスクショを貼らせる — 回り道と、9/1 に来た gh --attach"
+  },
+  {
     "title": "【設定・環境構築】herdr を実際に使ってみる — 「エージェントの状態が見える」は何ができることなのか",
     "url": "https://kt-tech.blog/blogs/herdr-agent-state-in-practice",
     "date": "2026-08-23",
@@ -28,11 +34,5 @@
     "url": "https://kt-tech.blog/blogs/claude-code-cross-session-messaging",
     "date": "2026-08-15",
     "description": "【設計】Claude Code のセッション同士を会話させる — SendMessage と、権限が越境しない設計"
-  },
-  {
-    "title": "【環境構築】Claude Code に対話コマンドを任せる — tmux・herdr・cmux はどの層で戦っているか",
-    "url": "https://kt-tech.blog/blogs/terminal-multiplexer-for-coding-agents",
-    "date": "2026-08-14",
-    "description": "【環境構築】Claude Code に対話コマンドを任せる — tmux・herdr・cmux はどの層で戦っているか"
   }
 ]
