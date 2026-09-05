@@ -1,5 +1,11 @@
 [
   {
+    "title": "【設計】Remote Control はアカウントで止まる、herdr は PTY 層で越える — 会社用 Claude の許可待ちを個人の携帯から捌く",
+    "url": "https://kt-tech.blog/blogs/cross-account-claude-watchtower",
+    "date": "2026-09-06",
+    "description": "【設計】Remote Control はアカウントで止まる、herdr は PTY 層で越える — 会社用 Claude の許可待ちを個人の携帯から捌く"
+  },
+  {
     "title": "【実装】エージェントに GitHub のスクショを貼らせる — 回り道と、9/1 に来た gh --attach",
     "url": "https://kt-tech.blog/blogs/gh-attach-agent-screenshot-upload",
     "date": "2026-09-03",
@@ -28,11 +34,5 @@
     "url": "https://kt-tech.blog/blogs/terminal-stack-for-coding-agents",
     "date": "2026-08-15",
     "description": "【環境構築】Ghostty・tmux・herdr・cmux をどう積むか — ターミナルを層で考える"
-  },
-  {
-    "title": "【設計】Claude Code のセッション同士を会話させる — SendMessage と、権限が越境しない設計",
-    "url": "https://kt-tech.blog/blogs/claude-code-cross-session-messaging",
-    "date": "2026-08-15",
-    "description": "【設計】Claude Code のセッション同士を会話させる — SendMessage と、権限が越境しない設計"
   }
 ]
