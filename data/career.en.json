@@ -44,9 +44,9 @@
     },
     "株式会社Diafa（業務委託）|2024-04": {
       "company": "Diafa",
-      "product": "con-cafe.jp",
+      "product": "Store Search Web Application",
       "role": "Member",
-      "description": "Built an information service covering concept cafés across Japan. It started as a personal project and grew into a contract engagement, where I owned everything from technology choices and architecture through to infrastructure. Alongside designing the AWS setup — including weighing App Runner against Amplify — I worked on performance, SEO, and building and running the CI/CD pipeline."
+      "description": "Built a web application for searching store information, owning everything from technology choices and architecture through to infrastructure. Alongside designing the AWS setup — including weighing App Runner against Amplify — I worked on performance, SEO, and building and running the CI/CD pipeline."
     },
     "株式会社toraco（業務委託）|2024-12": {
       "company": "toraco",
