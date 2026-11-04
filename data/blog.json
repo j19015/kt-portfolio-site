@@ -1,15 +1,9 @@
 [
   {
-    "title": "【実装】herdr app のサイドバーを作り替える — 折りたたみ時の番号だけ表示と「+」ボタンを直感的に",
-    "url": "https://kt-tech.blog/blogs/herdr-app-sidebar-customize",
-    "date": "2026-10-30",
-    "description": "【実装】herdr app のサイドバーを作り替える — 折りたたみ時の番号だけ表示と「+」ボタンを直感的に"
-  },
-  {
-    "title": "【実装】herdr app の mod で Files パネルを拡張する — Markdown・HTML・PDF・画像をその場でプレビュー",
-    "url": "https://kt-tech.blog/blogs/herdr-app-mod-file-preview",
-    "date": "2026-10-30",
-    "description": "【実装】herdr app の mod で Files パネルを拡張する — Markdown・HTML・PDF・画像をその場でプレビュー"
+    "title": "構成図をAIに描いてもらうskill「stack-diagram」でブログのREADMEに構成図を載せてみた",
+    "url": "https://kt-tech.blog/blogs/stack-diagram-architecture-readme",
+    "date": "2026-11-03",
+    "description": "構成図をAIに描いてもらうskill「stack-diagram」でブログのREADMEに構成図を載せてみた"
   },
   {
     "title": "【設定・環境構築】Ghostty + herdr CLI から herdr app に乗り換える — 同じ名前の別製品だった",
@@ -18,21 +12,27 @@
     "description": "【設定・環境構築】Ghostty + herdr CLI から herdr app に乗り換える — 同じ名前の別製品だった"
   },
   {
-    "title": "自宅のWindowsを開発機にする その5: Orcaで仕事用アカウントと会話履歴を正しく扱う",
-    "url": "https://kt-tech.blog/blogs/wsl-devbox-5-orca-accounts-history",
-    "date": "2026-09-23",
-    "description": "自宅のWindowsを開発機にする その5: Orcaで仕事用アカウントと会話履歴を正しく扱う"
+    "title": "【実装】herdr app の mod で Files パネルを拡張する — Markdown・HTML・PDF・画像をその場でプレビュー",
+    "url": "https://kt-tech.blog/blogs/herdr-app-mod-file-preview",
+    "date": "2026-10-30",
+    "description": "【実装】herdr app の mod で Files パネルを拡張する — Markdown・HTML・PDF・画像をその場でプレビュー"
   },
   {
-    "title": "自宅のWindowsを開発機にする その4: Orcaを入れてWSLのリポジトリを扱う",
-    "url": "https://kt-tech.blog/blogs/wsl-devbox-4-orca",
-    "date": "2026-09-23",
-    "description": "自宅のWindowsを開発機にする その4: Orcaを入れてWSLのリポジトリを扱う"
+    "title": "【実装】herdr app のサイドバーを作り替える — 折りたたみ時の番号だけ表示と「+」ボタンを直感的に",
+    "url": "https://kt-tech.blog/blogs/herdr-app-sidebar-customize",
+    "date": "2026-10-30",
+    "description": "【実装】herdr app のサイドバーを作り替える — 折りたたみ時の番号だけ表示と「+」ボタンを直感的に"
   },
   {
-    "title": "自宅のWindowsを開発機にする その3: Claude Codeの設定とメモリを引っ越す",
-    "url": "https://kt-tech.blog/blogs/wsl-devbox-3-claude-code-config",
+    "title": "自宅のWindowsを開発機にする その1: TailscaleでMacとスマホからWSLに入る",
+    "url": "https://kt-tech.blog/blogs/wsl-devbox-1-tailscale",
     "date": "2026-09-23",
-    "description": "自宅のWindowsを開発機にする その3: Claude Codeの設定とメモリを引っ越す"
+    "description": "自宅のWindowsを開発機にする その1: TailscaleでMacとスマホからWSLに入る"
+  },
+  {
+    "title": "自宅のWindowsを開発機にする その2: Macの開発環境を作業状態ごとWSLに移す",
+    "url": "https://kt-tech.blog/blogs/wsl-devbox-2-migrate-env",
+    "date": "2026-09-23",
+    "description": "自宅のWindowsを開発機にする その2: Macの開発環境を作業状態ごとWSLに移す"
   }
 ]
