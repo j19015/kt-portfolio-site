@@ -1,5 +1,17 @@
 [
   {
+    "title": "【1Password】.env.local をやめて op run で秘密情報を渡すようにした",
+    "url": "https://kt-tech.blog/blogs/env-local-to-1password",
+    "date": "2026-11-10",
+    "description": "【1Password】.env.local をやめて op run で秘密情報を渡すようにした"
+  },
+  {
+    "title": "【Cloudflare】D1 と Turnstile で記事に「参考になった」ボタンを付けてみた",
+    "url": "https://kt-tech.blog/blogs/reactions-d1-turnstile",
+    "date": "2026-11-10",
+    "description": "【Cloudflare】D1 と Turnstile で記事に「参考になった」ボタンを付けてみた"
+  },
+  {
     "title": "構成図をAIに描いてもらうskill「stack-diagram」でブログのREADMEに構成図を載せてみた",
     "url": "https://kt-tech.blog/blogs/stack-diagram-architecture-readme",
     "date": "2026-11-03",
@@ -22,17 +34,5 @@
     "url": "https://kt-tech.blog/blogs/herdr-app-sidebar-customize",
     "date": "2026-10-30",
     "description": "【実装】herdr app のサイドバーを作り替える — 折りたたみ時の番号だけ表示と「+」ボタンを直感的に"
-  },
-  {
-    "title": "自宅のWindowsを開発機にする その1: TailscaleでMacとスマホからWSLに入る",
-    "url": "https://kt-tech.blog/blogs/wsl-devbox-1-tailscale",
-    "date": "2026-09-23",
-    "description": "自宅のWindowsを開発機にする その1: TailscaleでMacとスマホからWSLに入る"
-  },
-  {
-    "title": "自宅のWindowsを開発機にする その2: Macの開発環境を作業状態ごとWSLに移す",
-    "url": "https://kt-tech.blog/blogs/wsl-devbox-2-migrate-env",
-    "date": "2026-09-23",
-    "description": "自宅のWindowsを開発機にする その2: Macの開発環境を作業状態ごとWSLに移す"
   }
 ]
