@@ -1,5 +1,29 @@
 [
   {
+    "title": "【Herdr】スマホアプリから Mac に入る — Tailscale の ACL と sshd を絞ってからつなぐ",
+    "url": "https://kt-tech.blog/blogs/herdr-mobile-tailscale-ssh",
+    "date": "2026-11-10",
+    "description": "【Herdr】スマホアプリから Mac に入る — Tailscale の ACL と sshd を絞ってからつなぐ"
+  },
+  {
+    "title": "【Notion】インテグレーションを読み取り用と書き込み用に分けたら、空の Secret で同期が成功していた",
+    "url": "https://kt-tech.blog/blogs/notion-integration-read-write-split",
+    "date": "2026-11-10",
+    "description": "【Notion】インテグレーションを読み取り用と書き込み用に分けたら、空の Secret で同期が成功していた"
+  },
+  {
+    "title": "【Cloudflare】外から Notion API の枠を使い切られないように、画像URLに署名を付けて WAF でレート制限した",
+    "url": "https://kt-tech.blog/blogs/notion-api-quota-signed-url-waf",
+    "date": "2026-11-10",
+    "description": "【Cloudflare】外から Notion API の枠を使い切られないように、画像URLに署名を付けて WAF でレート制限した"
+  },
+  {
+    "title": "【Notion】読了時間と「本文の更新日」を CI で Notion に書き戻すようにした",
+    "url": "https://kt-tech.blog/blogs/notion-ci-reading-time-writeback",
+    "date": "2026-11-10",
+    "description": "【Notion】読了時間と「本文の更新日」を CI で Notion に書き戻すようにした"
+  },
+  {
     "title": "【1Password】.env.local をやめて op run で秘密情報を渡すようにした",
     "url": "https://kt-tech.blog/blogs/env-local-to-1password",
     "date": "2026-11-10",
@@ -10,29 +34,5 @@
     "url": "https://kt-tech.blog/blogs/reactions-d1-turnstile",
     "date": "2026-11-10",
     "description": "【Cloudflare】D1 と Turnstile で記事に「参考になった」ボタンを付けてみた"
-  },
-  {
-    "title": "構成図をAIに描いてもらうskill「stack-diagram」でブログのREADMEに構成図を載せてみた",
-    "url": "https://kt-tech.blog/blogs/stack-diagram-architecture-readme",
-    "date": "2026-11-03",
-    "description": "構成図をAIに描いてもらうskill「stack-diagram」でブログのREADMEに構成図を載せてみた"
-  },
-  {
-    "title": "【設定・環境構築】Ghostty + herdr CLI から herdr app に乗り換える — 同じ名前の別製品だった",
-    "url": "https://kt-tech.blog/blogs/herdr-app-migration-from-cli",
-    "date": "2026-10-30",
-    "description": "【設定・環境構築】Ghostty + herdr CLI から herdr app に乗り換える — 同じ名前の別製品だった"
-  },
-  {
-    "title": "【実装】herdr app の mod で Files パネルを拡張する — Markdown・HTML・PDF・画像をその場でプレビュー",
-    "url": "https://kt-tech.blog/blogs/herdr-app-mod-file-preview",
-    "date": "2026-10-30",
-    "description": "【実装】herdr app の mod で Files パネルを拡張する — Markdown・HTML・PDF・画像をその場でプレビュー"
-  },
-  {
-    "title": "【実装】herdr app のサイドバーを作り替える — 折りたたみ時の番号だけ表示と「+」ボタンを直感的に",
-    "url": "https://kt-tech.blog/blogs/herdr-app-sidebar-customize",
-    "date": "2026-10-30",
-    "description": "【実装】herdr app のサイドバーを作り替える — 折りたたみ時の番号だけ表示と「+」ボタンを直感的に"
   }
 ]
