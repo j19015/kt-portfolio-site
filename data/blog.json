@@ -3,36 +3,36 @@
     "title": "【Herdr】スマホアプリから Mac に入る — Tailscale の ACL と sshd を絞ってからつなぐ",
     "url": "https://kt-tech.blog/blogs/herdr-mobile-tailscale-ssh",
     "date": "2026-11-10",
-    "description": "【Herdr】スマホアプリから Mac に入る — Tailscale の ACL と sshd を絞ってからつなぐ"
+    "description": "Herdr 公式のスマホアプリ（iPhone）から、Tailscale 経由で Mac の herdr-core に SSH でつないだ記録です。「Connect a machine」に何を入れるか、Tailscale の ACL を端末ごとに絞る書き方、パスワードログインを Tailscale 経由だけに限る ssh"
   },
   {
     "title": "【Notion】インテグレーションを読み取り用と書き込み用に分けたら、空の Secret で同期が成功していた",
     "url": "https://kt-tech.blog/blogs/notion-integration-read-write-split",
     "date": "2026-11-10",
-    "description": "【Notion】インテグレーションを読み取り用と書き込み用に分けたら、空の Secret で同期が成功していた"
+    "description": "ブログの本番と CI で同じ Notion トークンを使っていて、本番が書き込みもできる状態になっていたので、インテグレーションを読み取り用と書き込み用に分けました。新しい Secret が入っていないのにフォールバックのせいで同期が成功して気づけなかった話と、last_edited_by でどのトークンが書いたかを確"
   },
   {
     "title": "【Cloudflare】外から Notion API の枠を使い切られないように、画像URLに署名を付けて WAF でレート制限した",
     "url": "https://kt-tech.blog/blogs/notion-api-quota-signed-url-waf",
     "date": "2026-11-10",
-    "description": "【Cloudflare】外から Notion API の枠を使い切られないように、画像URLに署名を付けて WAF でレート制限した"
+    "description": "Notion を CMS にしたこのブログでは、でたらめな URL を投げ続けるだけで Notion API の枠（平均3リクエスト/秒）を外から使い切れる状態でした。画像URLへの HMAC 署名、知らない slug を Notion に問い合わせない対応、Cloudflare WAF のレート制限（Terrafor"
   },
   {
     "title": "【Notion】読了時間と「本文の更新日」を CI で Notion に書き戻すようにした",
     "url": "https://kt-tech.blog/blogs/notion-ci-reading-time-writeback",
     "date": "2026-11-10",
-    "description": "【Notion】読了時間と「本文の更新日」を CI で Notion に書き戻すようにした"
+    "description": "Notion を CMS にしているこのブログで、一覧の「N分で読める」が一度も出ていなかったのを直しました。デプロイ前に CI が本文を読んで、読了時間と本文が変わった日時を Notion のプロパティに書き戻す仕組みと、変更のない記事まで読み直していた不具合の話をまとめています。"
   },
   {
     "title": "【1Password】.env.local をやめて op run で秘密情報を渡すようにした",
     "url": "https://kt-tech.blog/blogs/env-local-to-1password",
     "date": "2026-11-10",
-    "description": "【1Password】.env.local をやめて op run で秘密情報を渡すようにした"
+    "description": "ローカルの .env.local と .dev.vars に平文で置いていた秘密情報を 1Password に移して、op run で実行時にだけ渡すようにしました。.env.op の書き方、スクリプト側の対応、値を画面に出さずに移行した手順をまとめています。"
   },
   {
     "title": "【Cloudflare】D1 と Turnstile で記事に「参考になった」ボタンを付けてみた",
     "url": "https://kt-tech.blog/blogs/reactions-d1-turnstile",
     "date": "2026-11-10",
-    "description": "【Cloudflare】D1 と Turnstile で記事に「参考になった」ボタンを付けてみた"
+    "description": "このブログの記事末に「参考になった」ボタンを付けました。件数は Cloudflare D1 に保存して、bot 対策に Turnstile を使っています。有料プランで何にお金を払っていたのか、D1 の料金で不安だったところ、Terraform での管理までまとめています。"
   }
 ]
